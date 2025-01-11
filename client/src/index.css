@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    width: 100%;
+    font-family: "Plus Jakarta Sans";
+}
+
+.inputFields {
+    @apply w-full bg-transparent text-slate-700 text-sm border border-slate-200 rounded-md px-2 py-2 transition duration-300 focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm;
+}
+.Toastify__toast-container {
+    z-index: 9999 !important;
+    top : 70px !important;
+}
