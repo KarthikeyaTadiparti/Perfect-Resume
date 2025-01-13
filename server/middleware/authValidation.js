@@ -30,7 +30,7 @@ const loginValidation = (req, res, next) => {
 
 const ensureAuthentication = (req, res, next) => {
     let jwtToken = req.cookies.jwtToken;
-    // console.log(jwtToken);
+    console.log(jwtToken);
     if (!jwtToken)
         return res.status(403).json({ message: "User must me logged in" });
 

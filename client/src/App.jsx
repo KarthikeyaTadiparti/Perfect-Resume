@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -14,7 +15,9 @@ function App() {
             <div className="flex-1 flex items-center bg-background">
                 <Routes>
                     <Route path="/" element={<Home />}></Route>
-                    <Route path="/resume" element={<Resume />}></Route>
+                    <Route path="" element={<PrivateRoute />}>
+                        <Route path="/resume" element={<Resume />}></Route>
+                    </Route>
                     <Route path="/auth/login" element={<Login />}></Route>
                     <Route path="/auth/signup" element={<Signup />}></Route>
                     <Route path="/create" element={<Create />}></Route>

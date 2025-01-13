@@ -1,29 +1,29 @@
 const UserModel = require("../models/UserModel");
+const genToken = require("../utils/genToken");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         let user = await UserModel.findOne({ email });
         if (user) {
-            return res.status(409).json({ message: "User already exists" });
+            return res.status(409).json({ message: "User already exists!" });
         }
+
         const newUser = new UserModel({ name, email, password });
         newUser.password = await bcrypt.hash(password, 10);
         await newUser.save();
 
-        const jwtToken = jwt.sign(
-            { _id: newUser._id, name: newUser.name, email: newUser.email },
-            process.env.JWT_SECRET,
-            { expiresIn: "24h" }
-        );
-        // console.log(jwtToken);
-        res.cookie("jwtToken", jwtToken, {
-            httpOnly: true, 
-            maxAge: 24 * 60 * 60 * 1000, 
+        genToken(res, newUser._id);
+        res.status(201).json({
+            message: "User registered successfully!",
+            success: true,
+            user : {
+                id : newUser._id,
+                name : newUser.name,
+                email : newUser.email,
+            }
         });
-        res.status(201).json({ message: "Signup successfully", success: true });
     } catch (error) {
         res.status(500).json({
             message: "Internal server error",
@@ -46,23 +46,18 @@ const login = async (req, res) => {
         if (!isPassword) {
             return res
                 .status(403)
-                .json({ message: "Wrong email or password", success: false });
+                .json({ message: "Invalid email or password", success: false });
         }
 
-        const jwtToken = jwt.sign(
-            { _id: user._id, name: user.name, email: user.email },
-            process.env.JWT_SECRET,
-            { expiresIn: "24h" }
-        );
-        // console.log(jwtToken);
-        res.cookie("jwtToken", jwtToken, {
-            httpOnly: true, 
-            maxAge: 24 * 60 * 60 * 1000, 
-        });
-        
+        genToken(res, user._id);
         res.status(201).json({
-            message: "Login successfully",
+            message: "User logged in successfully!",
             success: true,
+            user : {
+                id : user._id,
+                name : user.name,
+                email : user.email,
+            }
         });
     } catch (error) {
         res.status(500).json({
@@ -71,4 +66,14 @@ const login = async (req, res) => {
         });
     }
 };
-module.exports = { signup, login };
+
+const logout = async (req, res) => {
+    res.clearCookie("jwt", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== "development",
+        sameSite: "strict",
+    });
+    res.status(200).json({ message: "User logged out" });
+};
+
+module.exports = { signup, login, logout };

@@ -4,6 +4,8 @@ import axios from "axios";
 import { handleError, handleSuccess } from "../utils/utils";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 function Signup() {
     const [formData, setFormData] = useState({
@@ -12,6 +14,10 @@ function Signup() {
         password: "",
     });
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const UserInfo = useSelector((state) => state.auth.UserInfo);
+
 
     const handleChanges = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -19,8 +25,6 @@ function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // console.log(formData);
-
         try {
             let response = await axios.post(
                 "http://localhost:3000/auth/signup",
@@ -32,15 +36,14 @@ function Signup() {
             );
             // console.log(response.data);
             let result = response.data;
+            dispatch(setCredentials(result.user));
             if (result.success) {
                 handleSuccess(result.message);
-                setTimeout(() => {
-                    navigate("/resume");
-                }, 1000);
+                navigate("/resume");
             }
         } catch (error) {
             console.log(error);
-            let msg = error.response.data.message;
+            let msg = error?.response?.data?.message;
             handleError(msg);
         }
     };

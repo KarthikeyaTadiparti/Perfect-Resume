@@ -19,10 +19,9 @@ app.use(cookieParser());
 
 app.use("/auth", authRouter);
 
-app.get("/resume", ensureAuthentication, (req, res) => {
+app.get("/resume", (req, res) => {
     let user = req.user;
     res.json(user);
-    
 });
 
 app.listen(3000, () => {

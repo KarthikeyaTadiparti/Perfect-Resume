@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {useDispatch,useSelector} from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 import { handleError, handleSuccess } from "../utils/utils";
 import axios from "axios";
 import FormInput from "../components/FormInput";
@@ -11,6 +13,9 @@ function Login() {
         password: "",
     });
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const UserInfo = useSelector((state) => state.auth.UserInfo);
 
     const handleChanges = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -30,15 +35,15 @@ function Login() {
             );
             // console.log(response.data);
             let result = response.data;
+            dispatch(setCredentials(result.user));
+
             if (result.success) {
                 handleSuccess(result.message);
-                setTimeout(() => {
-                    navigate("/resume");
-                }, 1000);
+                navigate("/resume");
             }
         } catch (error) {
             console.log(error);
-            let msg = error.response.data.message;
+            let msg = error?.response?.data?.message;
             handleError(msg);
         }
     };
@@ -72,7 +77,7 @@ function Login() {
                     </Link>
                 </div>
 
-                <FormButton name="Log In"/>
+                <FormButton name="Log In" />
                 <hr />
 
                 <p className="mt-4 text-center">
