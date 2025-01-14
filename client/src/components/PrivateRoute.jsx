@@ -5,18 +5,18 @@ import { handleError } from "../utils/utils";
 
 const PrivateRoute = () => {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
+    return UserInfo ? <Outlet /> : <Navigate to="/auth/login" replace />;
+    // useEffect(() => {
+    //     if (!UserInfo) {
+    //         handleError("User must be logged in!");
+    //     }
+    // }, [UserInfo]);
 
-    useEffect(() => {
-        if (!UserInfo) {
-            handleError("User must be logged in!");
-        }
-    }, [UserInfo]); 
+    // if (!UserInfo) {
+    //     return <Navigate to="/auth/login" replace />;
+    // }
 
-    if (!UserInfo) {
-        return <Navigate to="/auth/login" replace />;
-    }
-
-    return <Outlet />;
+    // return <Outlet />;
 };
 
 export default PrivateRoute;

@@ -4,7 +4,7 @@ function Home() {
     return (
         <div className=" w-4/5 h-full mx-auto flex ">
             <div className="w-3/5">
-                <h1 className="text-4xl font-black tracking-wider leading-relaxed mt-36">
+                <h1 className="text-4xl font-black tracking-wider leading-relaxed mt-28">
                     Land the Job with Resumes
                     <br />
                     That work for You.
@@ -27,7 +27,7 @@ function Home() {
                 <img
                     src="./images/resume-illustration.svg"
                     alt="resume-illustration"
-                    className="h-5/6 float-right"
+                    className="h-[90%] float-right"
                 />
             </div>
         </div>
