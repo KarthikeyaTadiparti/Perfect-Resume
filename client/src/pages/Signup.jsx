@@ -48,7 +48,7 @@ function Signup() {
         }
     };
     return (
-        <div className="w-screen h-full flex justify-center items-center bg-background">
+        <div className="w-screen h-full flex justify-center items-center bg-back">
             <form
                 onSubmit={handleSubmit}
                 className="w-1/4 shadow-md border border-gray-200 mx-auto px-6 py-4 rounded-lg bg-white"

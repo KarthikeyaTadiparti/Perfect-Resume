@@ -6,6 +6,7 @@ import { handleError, handleSuccess } from "../utils/utils";
 import axios from "axios";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
+import { Button } from "@/components/ui/button";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -49,7 +50,7 @@ function Login() {
     };
 
     return (
-        <div className="w-screen h-full flex justify-center items-center bg-background">
+        <div className="w-screen h-full flex justify-center items-center bg-back">
             <form
                 onSubmit={handleSubmit}
                 className="w-1/4 border border-gray-200 mx-auto px-6 py-8 rounded-lg shadow-md bg-white"
@@ -89,6 +90,7 @@ function Login() {
                         Sign up
                     </Link>
                 </p>
+                <Button>Click</Button>
             </form>
         </div>
     );
