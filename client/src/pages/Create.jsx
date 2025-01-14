@@ -16,8 +16,8 @@ function Create() {
     const [selectedTemplate, setSelectedTemplate] = useState("template1");
 
     return (
-        <div className="w-4/5 flex flex-col gap-10 my-10 mx-auto">
-            <div className="w-full flex justify-center gap-4">
+        <div className="w-4/5 flex flex-col my-10 mx-auto ">
+            {/* <div className="w-full flex justify-center gap-4">
                 <button
                     className={`px-4 py-2 border rounded ${
                         selectedTemplate === "template1"
@@ -38,9 +38,9 @@ function Create() {
                 >
                     Template 2
                 </button>
-            </div>
+            </div> */}
 
-            <div className="w-full flex gap-10">
+            <div className="w-full flex gap-5">
                 <div className="w-1/2">
                     <Edit formData={formData} setFormData={setFormData} />
                 </div>

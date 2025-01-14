@@ -90,7 +90,6 @@ function Login() {
                         Sign up
                     </Link>
                 </p>
-                <Button>Click</Button>
             </form>
         </div>
     );

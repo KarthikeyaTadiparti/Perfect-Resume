@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { handleError } from "../utils/utils";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Resume() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
@@ -84,11 +84,11 @@ function Resume() {
                             </div>
                         </div>
                     ))}
-                <a href="/user/new">
+                <Link to="/new">
                     <div className="w-52 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow">
                         <i className="text-[60px] hover:text-pri-blue p-6 text-gray-200 fa-solid fa-plus"></i>
                     </div>
-                </a>
+                </Link>
             </div>
         </div>
     );

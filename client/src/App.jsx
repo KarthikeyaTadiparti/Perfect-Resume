@@ -10,7 +10,7 @@ import Create from "./pages/Create";
 
 function App() {
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col overflow-x-hidden">
             <Navbar />
             <div className="flex-1 flex items-center bg-back">
                 <Routes>
@@ -20,7 +20,7 @@ function App() {
                     </Route>
                     <Route path="/auth/login" element={<Login />}></Route>
                     <Route path="/auth/signup" element={<Signup />}></Route>
-                    <Route path="/create" element={<Create />}></Route>
+                    <Route path="/new" element={<Create />}></Route>
                 </Routes>
             </div>
             <ToastContainer />
