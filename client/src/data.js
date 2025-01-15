@@ -1,4 +1,4 @@
-{
+export const data = {
     "id": 841269510,
     "urn": "ACoAADIkwQYBr7mVbUbxaawAOV1qCCpUym4zwUk",
     "username": "manibhaskar",

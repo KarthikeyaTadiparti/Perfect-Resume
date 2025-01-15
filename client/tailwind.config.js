@@ -16,10 +16,13 @@ module.exports = {
             },
         },
         extend: {
+            fontFamily: {
+                times: ['"Times New Roman"', 'serif'],
+              },
             colors: {
                 "pri-blue": "#004E98",
                 "dark-pri-blue": "#02417b",
-                'back' : '#F8F8F8',
+                back: "#F8F8F8",
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",

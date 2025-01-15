@@ -10,7 +10,7 @@ import Create from "./pages/Create";
 
 function App() {
     return (
-        <div className="min-h-screen flex flex-col overflow-x-hidden">
+        <div className="min-h-screen flex flex-col">
             <Navbar />
             <div className="flex-1 flex items-center bg-back">
                 <Routes>
