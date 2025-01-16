@@ -24,6 +24,10 @@ const educationFormDefaultValues = {
     start: { year: "" },
     end: { year: "" },
 };
+const certificationFormDefaultValues = {
+    name: "",
+    authority: "",
+};
 const formDefaultValues = {
     firstName: "",
     lastName: "",
@@ -35,6 +39,7 @@ const formDefaultValues = {
     },
     headline: "",
     educations: [educationFormDefaultValues],
+    certifications: [certificationFormDefaultValues],
 };
 
 function Create() {
@@ -45,6 +50,10 @@ function Create() {
     const educationArrayFields = useFieldArray({
         control,
         name: "educations",
+    });
+    const certificationArrayFields = useFieldArray({
+        control,
+        name: "certifications",
     });
 
     console.log("GET", getValues());
@@ -94,6 +103,10 @@ function Create() {
                 educations: [...apiData.educations] || [
                     educationFormDefaultValues,
                 ],
+                certifications: apiData.certifications.map((certificate) => ({
+                    name: certificate.name || "",
+                    authority: certificate.authority || "",
+                })),
             };
 
             // Update the form using reset
@@ -107,24 +120,24 @@ function Create() {
         const element = document.getElementById("previewBox");
         const canvas = await html2canvas(element, {
             scale: 3,
-          });
-          const data = canvas.toDataURL("image/png");
-      
-          const pdf = new jsPDF({
+        });
+        const data = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF({
             orientation: "portrait",
             unit: "px",
             format: "a4",
-          });
-      
-          const imgProperties = pdf.getImageProperties(data);
-          const pdfWidth = pdf.internal.pageSize.getWidth();
-      
-          const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-      
-          pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
-          pdf.save("examplepdf.pdf");
+        });
+
+        const imgProperties = pdf.getImageProperties(data);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+
+        const pdfHeight =
+            (imgProperties.height * pdfWidth) / imgProperties.width;
+
+        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("examplepdf.pdf");
     };
-    
 
     return (
         <div className="w-screen h-full flex">
@@ -167,6 +180,7 @@ function Create() {
                         <Edit
                             handleSubmit={handleSubmit}
                             educationArrayFields={educationArrayFields}
+                            certificationArrayFields={certificationArrayFields}
                             register={register}
                         />
                         <Button

@@ -6,6 +6,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 
 const educationFormDefaultValues = {
@@ -16,14 +17,23 @@ const educationFormDefaultValues = {
     start: "",
     end: "",
 };
+const certificationFormDefaultValues = {
+    name: "",
+    authority: "",
+};
 
-function Edit({ handleSubmit, educationArrayFields, register }) {
+function Edit({
+    handleSubmit,
+    educationArrayFields,
+    certificationArrayFields,
+    register,
+}) {
     const onSubmit = (data) => {
         console.log(data);
     };
 
     return (
-        <div >
+        <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* Accordion for Personal Information */}
                 <Accordion type="single" collapsible>
@@ -49,7 +59,10 @@ function Edit({ handleSubmit, educationArrayFields, register }) {
                                     labelName="Mobile Number"
                                     {...register("mobile")}
                                 />
-                                <Input labelName="City" {...register("geo.city")} />
+                                <Input
+                                    labelName="City"
+                                    {...register("geo.city")}
+                                />
                                 <Input
                                     labelName="Country"
                                     {...register("geo.country")}
@@ -78,7 +91,7 @@ function Edit({ handleSubmit, educationArrayFields, register }) {
                         <AccordionContent>
                             {educationArrayFields.fields.map((_, idx) => (
                                 <div
-                                    className="pb-4 pt-0 rounded-b-lg px-8 bg-white border-gray-200 grid grid-cols-2 gap-x-4"
+                                    className="pt-0 rounded-b-lg px-8 bg-white border-gray-200 grid grid-cols-2 gap-x-4"
                                     key={idx}
                                 >
                                     <Input
@@ -95,7 +108,9 @@ function Edit({ handleSubmit, educationArrayFields, register }) {
                                     />
                                     <Input
                                         labelName="Degree"
-                                        {...register(`educations.${idx}.degree`)}
+                                        {...register(
+                                            `educations.${idx}.degree`
+                                        )}
                                     />
                                     <Input
                                         labelName="Percentage"
@@ -104,13 +119,18 @@ function Edit({ handleSubmit, educationArrayFields, register }) {
                                     <Input
                                         labelName="From"
                                         placeholder="Year (e.g., 2020)"
-                                        {...register(`educations.${idx}.start.year`)}
+                                        {...register(
+                                            `educations.${idx}.start.year`
+                                        )}
                                     />
                                     <Input
                                         labelName="To"
                                         placeholder="Year (e.g., 2024)"
-                                        {...register(`educations.${idx}.end.year`)}
+                                        {...register(
+                                            `educations.${idx}.end.year`
+                                        )}
                                     />
+                                    <Separator className="col-span-2 mt-4" />
                                 </div>
                             ))}
 
@@ -125,6 +145,47 @@ function Edit({ handleSubmit, educationArrayFields, register }) {
                                     }
                                 >
                                     Add Another Education
+                                </button>
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Accordion for Certifications */}
+                    <AccordionItem value="item-3">
+                        <AccordionTrigger>Certifications</AccordionTrigger>
+                        <AccordionContent>
+                            {certificationArrayFields.fields.map((_, idx) => (
+                                <div
+                                    className="pt-0 rounded-b-lg px-8 bg-white border-gray-200 grid grid-cols-2 gap-x-4"
+                                    key={idx}
+                                >
+                                    <Input
+                                        labelName="Certification Name"
+                                        {...register(
+                                            `certifications.${idx}.name`
+                                        )}
+                                    />
+                                    <Input
+                                        labelName="Authority"
+                                        {...register(
+                                            `certifications.${idx}.authority`
+                                        )}
+                                    />
+                                    <Separator className="col-span-2 mt-4" />
+                                </div>
+                            ))}
+
+                            <div className="px-8">
+                                <button
+                                    type="button"
+                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue"
+                                    onClick={() =>
+                                        certificationArrayFields.append(
+                                            certificationFormDefaultValues
+                                        )
+                                    }
+                                >
+                                    Add Another Certification
                                 </button>
                             </div>
                         </AccordionContent>
