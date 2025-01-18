@@ -1,30 +1,27 @@
 import { Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Resume from "./pages/Resume";
-import Navbar from "./components/Navbar";
-import { ToastContainer } from "react-toastify";
 import Create from "./pages/Create";
+import Layout from "./components/Layout";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
+    const UserInfo = useSelector((state) => state.auth.UserInfo);
     return (
-        <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <div className="flex-1 flex items-center bg-back">
-                <Routes>
-                    <Route path="/" element={<Home />}></Route>
-                    <Route path="" element={<PrivateRoute />}>
-                        <Route path="/resume" element={<Resume />}></Route>
-                    </Route>
-                    <Route path="/auth/login" element={<Login />}></Route>
-                    <Route path="/auth/signup" element={<Signup />}></Route>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />}></Route>
+                <Route path="/auth/login" element={<Login />}></Route>
+                <Route path="/auth/signup" element={<Signup />}></Route>
+                <Route element={<PrivateRoute UserInfo={UserInfo} />}>
+                    <Route path="/resume" element={<Resume />}></Route>
                     <Route path="/new" element={<Create />}></Route>
-                </Routes>
-            </div>
-            <ToastContainer />
-        </div>
+                </Route>
+            </Route>
+        </Routes>
     );
 }
 
