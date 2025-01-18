@@ -32,8 +32,12 @@ function Edit({
         console.log(data);
     };
 
+    const handleSaveAsPDF = async () => {
+        window.print();
+    };
+
     return (
-        <div>
+        <div className="print:hidden">
             <form onSubmit={handleSubmit(onSubmit)}>
                 {/* Accordion for Personal Information */}
                 <Accordion type="single" collapsible>
@@ -192,7 +196,12 @@ function Edit({
                     </AccordionItem>
                 </Accordion>
 
-                <Button className="mt-4">Submit</Button>
+                <div className="mt-4 flex justify-between">
+                    <Button >Submit</Button>
+                    <Button onClick={handleSaveAsPDF}>
+                        Download PDF
+                    </Button>
+                </div>
             </form>
         </div>
     );

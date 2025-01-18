@@ -13,8 +13,6 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -116,33 +114,10 @@ function Create() {
         }
     };
 
-    const handleSaveAsPDF = async () => {
-        const element = document.getElementById("previewBox");
-        const canvas = await html2canvas(element, {
-            scale: 3,
-        });
-        const data = canvas.toDataURL("image/png");
-
-        const pdf = new jsPDF({
-            orientation: "portrait",
-            unit: "px",
-            format: "a4",
-        });
-
-        const imgProperties = pdf.getImageProperties(data);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-
-        const pdfHeight =
-            (imgProperties.height * pdfWidth) / imgProperties.width;
-
-        pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save("examplepdf.pdf");
-    };
-
     return (
-        <div className="w-screen h-full flex">
+        <div className="w-screen h-full">
             <Sheet>
-                <SheetTrigger className="absolute border size-10 bg-white rounded-md">
+                <SheetTrigger className="absolute border size-10 bg-white rounded-md print:hidden">
                     <i className="fa-solid fa-arrow-right"></i>
                 </SheetTrigger>
                 <SheetContent side="left">
@@ -174,37 +149,27 @@ function Create() {
                 </SheetContent>
             </Sheet>
 
-            <div className="w-4/5 flex flex-col my-10 mx-auto ">
-                <div className="w-full flex gap-5">
-                    <div className="w-1/2">
-                        <Edit
-                            handleSubmit={handleSubmit}
-                            educationArrayFields={educationArrayFields}
-                            certificationArrayFields={certificationArrayFields}
-                            register={register}
-                        />
-                        <Button
-                            onClick={callApi}
-                            variant="destructive"
-                            className="mt-4"
-                        >
-                            Get Data
-                        </Button>
-
-                        <Button
-                            onClick={handleSaveAsPDF}
-                            variant="outline"
-                            className="mx-6 mt-4"
-                        >
-                            PDF
-                        </Button>
-                    </div>
-                    <div className="w-1/2">
-                        <Preview
-                            formData={formData}
-                            selectedTemplate={selectedTemplate}
-                        />
-                    </div>
+            <div className="w-4/5 my-10 mx-auto flex gap-5 print:w-full print:h-full print:p-0 print:m-0">
+                <div className="w-full h-full print:hidden">
+                    <Edit
+                        handleSubmit={handleSubmit}
+                        educationArrayFields={educationArrayFields}
+                        certificationArrayFields={certificationArrayFields}
+                        register={register}
+                    />
+                    <Button
+                        onClick={callApi}
+                        variant="destructive"
+                        className="mt-4"
+                    >
+                        Get Data
+                    </Button>
+                </div>
+                <div className="w-full h-full m-0 p-0">
+                    <Preview
+                        formData={formData}
+                        selectedTemplate={selectedTemplate}
+                    />
                 </div>
             </div>
         </div>

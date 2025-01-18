@@ -32,7 +32,7 @@ function Navbar() {
     };
 
     return (
-        <nav className="z-10 h-16 border-b-2 bg-white sticky top-0">
+        <nav className="print:hidden z-10 h-16 border-b-2 bg-white sticky top-0">
             <div className="flex w-4/5 mx-auto justify-between items-center">
                 <h1 className="font-bold text-2xl tracking-wide mt-4">
                     Perfect <span className="text-pri-blue">Resume</span>

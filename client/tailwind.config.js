@@ -17,7 +17,14 @@ module.exports = {
         },
         extend: {
             fontFamily: {
-                times: ['"Times New Roman"', 'serif'],
+                times: ['"Times New Roman"', "serif"],
+                cormorant: ["Cormorant Garamond", "serif"],
+            },
+            fontSize: {
+                'custom-small': 'var(--font-size-small)',  
+                'custom-medium': 'var(--font-size-medium)',
+                'custom-large': 'var(--font-size-large)',
+                'custom-xlarge': 'var(--font-size-xlarge)',
               },
             colors: {
                 "pri-blue": "#004E98",
