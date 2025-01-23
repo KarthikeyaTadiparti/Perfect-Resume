@@ -6,6 +6,8 @@ const resumeSchema = new Schema({
     lastName : String,
     email : String,
     mobile : String,
+    created_at : Date,
+    name : String,
 });
 
 module.exports = mongoose.model("Resume",resumeSchema);

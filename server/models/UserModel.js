@@ -15,6 +15,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    resumes : [
+        {
+            type : Schema.Types.ObjectId,
+            ref : "Resume"
+        }
+    ]
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -10,7 +10,8 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { FaTrash } from "react-icons/fa6";
-import { handleError } from "@/utils/utils";
+import { handleError, handleSuccess } from "@/utils/utils";
+import { useNavigate } from "react-router-dom";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -31,16 +32,26 @@ function Edit({
     certificationArrayFields,
     register,
 }) {
+    const navigate = useNavigate();
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
         //send to db
         try {
-            let response = await axios.post("http://localhost:3000/resume/new", data, {
-                headers: { "Content-Type": "application/json" },
-            });
+            let response = await axios.post(
+                "http://localhost:3000/resume/new",
+                data,
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
             console.log(response);
+            handleSuccess(response.data.message);
+            navigate("/resume");
         } catch (error) {
             console.log(error);
+            let msg = error?.response?.data?.message;
+            handleError(msg);
         }
         //navigate
     };

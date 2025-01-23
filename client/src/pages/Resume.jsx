@@ -1,29 +1,36 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 import { handleError } from "../utils/utils";
 import { Link, useNavigate } from "react-router-dom";
 
 function Resume() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
-    const navigate = useNavigate();
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             let result = await axios.get("http://localhost:3000/resume", {
-    //                 withCredentials: true,
-    //             });
-    //             // console.log(result);
-    //             setUser(result.data);
-    //         } catch (error) {
-    //             let result = error.response.data.message;
-    //             console.log(result);
-    //             navigate("/auth/login");
-    //             handleError(result);
-    //         }
-    //     };
-    //     fetchData();
-    // }, []);
+    // const navigate = useNavigate();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let response = await axios.get("http://localhost:3000/resume", {
+                    withCredentials: true,
+                });
+                // console.log(response);
+                let result = response.data;
+                console.log(result.user);
+                dispatch(setCredentials(result.user));
+            } catch (error) {
+                const errorMessage =
+                    error.response?.data?.message ||
+                    error.message ||
+                    "An unknown error occurred";
+
+                console.error("Error fetching data:", errorMessage); // Log the error
+                handleError(errorMessage); // Pass the error to your error handler
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className="w-4/5 h-full mx-auto">
@@ -49,11 +56,11 @@ function Resume() {
                 My Resumes
             </h3>
             <div className="flex gap-4">
-                {UserInfo?.documents &&
-                    UserInfo.documents.length > 0 &&
-                    UserInfo.documents.map((document) => (
+                {UserInfo?.resumes &&
+                    UserInfo.resumes.length > 0 &&
+                    UserInfo.resumes.map((resume) => (
                         <div
-                            key={document.id}
+                            key={resume.id}
                             className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow"
                         >
                             <a href="#">
@@ -66,13 +73,13 @@ function Resume() {
                             <div className="p-5">
                                 <a href="#">
                                     <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900">
-                                        {document.name}
+                                        {resume.name}
                                     </h5>
                                 </a>
                                 <p className="mb-3 text-sm font-normal text-gray-700">
                                     Updated{" "}
                                     {new Date(
-                                        document.modified_at
+                                        resume.modified_at
                                     ).toLocaleString("en-IN", {
                                         year: "numeric",
                                         month: "short",
