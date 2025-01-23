@@ -12,14 +12,14 @@ function App() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
     return (
         <Routes>
-            {/* <Route path="/demo" element={<Demo/>}></Route> */}
+            <Route path="/demo" element={<Demo/>}></Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />}></Route>
                 <Route path="/auth/login" element={<Login />}></Route>
                 <Route path="/auth/signup" element={<Signup />}></Route>
                 <Route element={<PrivateRoute UserInfo={UserInfo} />}>
                     <Route path="/resume" element={<Resume />}></Route>
-                    <Route path="/new" element={<Create />}></Route>
+                    <Route path="/resume/new" element={<Create />}></Route>
                 </Route>
             </Route>
             

@@ -6,7 +6,7 @@ const Input = React.forwardRef(
         ref
     ) => {
         return (
-            <div className="w-full max-w-sm min-w-[200px] mt-4">
+            <div className="w-full max-w-sm mt-4">
                 <label
                     htmlFor={props.name}
                     className="block mb-2 text-sm text-slate-600"

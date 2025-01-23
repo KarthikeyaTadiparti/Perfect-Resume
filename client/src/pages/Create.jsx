@@ -86,7 +86,7 @@ function Create() {
             // const apiData = response.data;
             // console.log("api : ", apiData.educations);
 
-            console.log(data);
+            // console.log(data);
             const apiData = data;
             const mappedData = {
                 firstName: apiData.firstName || "",

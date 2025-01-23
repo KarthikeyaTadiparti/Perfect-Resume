@@ -84,7 +84,7 @@ function Resume() {
                             </div>
                         </div>
                     ))}
-                <Link to="/new">
+                <Link to="/resume/new">
                     <div className="w-52 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow">
                         <i className="text-[60px] hover:text-pri-blue p-6 text-gray-200 fa-solid fa-plus"></i>
                     </div>

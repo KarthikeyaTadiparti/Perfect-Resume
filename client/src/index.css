@@ -4,11 +4,17 @@
 
 @layer base {
     :root {
-        --font-size-small: 14px;
-        --font-size-medium: 16px;
-        --font-size-large: 18px;
-        --font-size-xlarge: 28px;
+        --font-size-small-base: 13px;
+        --font-size-medium-base: 16px;
+        --font-size-large-base: 18px;
+        --font-size-xlarge-base: 24px;
 
+        /* Assign initial values */
+        --font-size-small: var(--font-size-small-base);
+        --font-size-medium: var(--font-size-medium-base);
+        --font-size-large: var(--font-size-large-base);
+        --font-size-xlarge: var(--font-size-xlarge-base);
+    
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
         --card: 0 0% 100%;
@@ -72,10 +78,10 @@
 
 @media print {
     :root {
-        --font-size-small: 18px;
-        --font-size-medium: 22px;
-        --font-size-large: 26px;
-        --font-size-xlarge: 36px;
+        --font-size-small: calc(var(--font-size-small-base) * 1.414);
+        --font-size-medium: calc(var(--font-size-medium-base) * 1.414);
+        --font-size-large: calc(var(--font-size-large-base) * 1.414);
+        --font-size-xlarge: calc(var(--font-size-xlarge-base) * 1.414);
     }
     * {
         box-sizing: border-box;
@@ -95,8 +101,6 @@
         box-sizing: border-box;
     }
 }
-
-
 body {
     width: 100%;
     height: 100%;

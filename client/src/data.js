@@ -2,8 +2,8 @@ export const data = {
     "id": 841269510,
     "urn": "ACoAADIkwQYBr7mVbUbxaawAOV1qCCpUym4zwUk",
     "username": "manibhaskar",
-    "firstName": "Mani Bhaskar",
-    "lastName": "Edula",
+    "firstName": "John",
+    "lastName": "Catter",
     "isCreator": true,
     "profilePicture": "https://media.licdn.com/dms/image/v2/D5603AQHbIOTDz0v0eg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1693898093366?e=1742428800\u0026v=beta\u0026t=N_Kdg262nfoRTV5VloPF0upV-5M7HBs2I23BbCvXIAY",
     "backgroundImage": [

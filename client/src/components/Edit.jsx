@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
     Accordion,
     AccordionContent,
@@ -8,6 +9,8 @@ import {
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
+import { FaTrash } from "react-icons/fa6";
+import { handleError } from "@/utils/utils";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -28,11 +31,21 @@ function Edit({
     certificationArrayFields,
     register,
 }) {
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log(data);
+        //send to db
+        try {
+            let response = await axios.post("http://localhost:3000/resume/new", data, {
+                headers: { "Content-Type": "application/json" },
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+        //navigate
     };
 
-    const handleSaveAsPDF = async () => {
+    const handleDownload = async () => {
         window.print();
     };
 
@@ -95,7 +108,7 @@ function Edit({
                         <AccordionContent>
                             {educationArrayFields.fields.map((_, idx) => (
                                 <div
-                                    className="pt-0 rounded-b-lg px-8 bg-white border-gray-200 grid grid-cols-2 gap-x-4"
+                                    className="grid grid-cols-2 rounded-b-lg px-8 bg-white border-gray-200 gap-x-4"
                                     key={idx}
                                 >
                                     <Input
@@ -134,6 +147,27 @@ function Edit({
                                             `educations.${idx}.end.year`
                                         )}
                                     />
+                                    <Button
+                                        onClick={() => {
+                                            if (
+                                                educationArrayFields.fields
+                                                    .length === 1
+                                            ) {
+                                                return handleError(
+                                                    "It must have at least one Education Field"
+                                                );
+                                            } else {
+                                                educationArrayFields.remove(
+                                                    idx
+                                                );
+                                            }
+                                        }}
+                                        variant="destructive"
+                                        className="mt-6 col-span-2"
+                                    >
+                                        <FaTrash />
+                                    </Button>
+
                                     <Separator className="col-span-2 mt-4" />
                                 </div>
                             ))}
@@ -160,7 +194,7 @@ function Edit({
                         <AccordionContent>
                             {certificationArrayFields.fields.map((_, idx) => (
                                 <div
-                                    className="pt-0 rounded-b-lg px-8 bg-white border-gray-200 grid grid-cols-2 gap-x-4"
+                                    className="grid grid-cols-[1fr_1fr_50px] items-end rounded-b-lg px-8 bg-white border-gray-200 gap-x-4"
                                     key={idx}
                                 >
                                     <Input
@@ -175,6 +209,25 @@ function Edit({
                                             `certifications.${idx}.authority`
                                         )}
                                     />
+                                    <Button
+                                        onClick={() => {
+                                            if (
+                                                certificationArrayFields.fields
+                                                    .length === 1
+                                            ) {
+                                                return handleError(
+                                                    "It must have at least one Certification Field"
+                                                );
+                                            } else {
+                                                certificationArrayFields.remove(
+                                                    idx
+                                                );
+                                            }
+                                        }}
+                                        variant="destructive"
+                                    >
+                                        <FaTrash />
+                                    </Button>
                                     <Separator className="col-span-2 mt-4" />
                                 </div>
                             ))}
@@ -183,11 +236,7 @@ function Edit({
                                 <button
                                     type="button"
                                     className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue"
-                                    onClick={() =>
-                                        certificationArrayFields.append(
-                                            certificationFormDefaultValues
-                                        )
-                                    }
+                                    onClick={() => {}}
                                 >
                                     Add Another Certification
                                 </button>
@@ -197,10 +246,8 @@ function Edit({
                 </Accordion>
 
                 <div className="mt-4 flex justify-between">
-                    <Button >Submit</Button>
-                    <Button onClick={handleSaveAsPDF}>
-                        Download PDF
-                    </Button>
+                    <Button type="submit">Submit</Button>
+                    <Button onClick={handleDownload}>Download PDF</Button>
                 </div>
             </form>
         </div>
