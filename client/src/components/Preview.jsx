@@ -1,8 +1,10 @@
 import React from "react";
 import Template1 from "./template1";
-function Preview({ formData, selectedTemplate }) {
+import { cn } from "@/utils/utils";
+
+function Preview({ formData, selectedTemplate ,className}) {
     return (
-        <div className="w-[595px] min-h-[842px] bg-white border-none shadow-none print:w-full print:h-full">
+        <div className={cn("w-[595px] min-h-[842px] bg-white border-none shadow-none print:w-full print:h-full",className)}>
             <div id="pdf-content" className="w-full h-full p-8">
                 {selectedTemplate === "template1" ? (
                     <Template1 formData={formData}/>

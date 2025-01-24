@@ -4,10 +4,10 @@
 
 @layer base {
     :root {
-        --font-size-small-base: 13px;
-        --font-size-medium-base: 16px;
-        --font-size-large-base: 18px;
-        --font-size-xlarge-base: 24px;
+        --font-size-small-base: 0.813rem; /*13px*/
+        --font-size-medium-base: 1rem;   /*16px*/
+        --font-size-large-base: 1.125rem;  /*18px*/
+        --font-size-xlarge-base: 1.5rem;   /*24px*/
 
         /* Assign initial values */
         --font-size-small: var(--font-size-small-base);

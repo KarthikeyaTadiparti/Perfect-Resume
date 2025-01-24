@@ -31,14 +31,14 @@ createResume = async (req, res) => {
             let data = req.body;
 
             //Time
-            const utcDate = new Date();
-            const istOffset = 5.5 * 60 * 60 * 1000;
-            const istDate = new Date(utcDate.getTime() + istOffset);
+            const istDate = new Date();
+            // const istOffset = 5.5 * 60 * 60 * 1000;
+            // const istDate = new Date(utcDate.getTime() + istOffset);
 
             //new Resume
             let newResume = new ResumeModel({
                 ...data,
-                created_at: istDate,
+                updated_at: istDate,
                 name: data.name || "Untitled Resume",
             });
             // console.log(newResume);

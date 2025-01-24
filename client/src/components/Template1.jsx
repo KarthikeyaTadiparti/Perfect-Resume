@@ -12,9 +12,9 @@ function Template1({ formData }) {
                     {formData.email && (
                         <div className="px-2">{formData.email}</div>
                     )}
-                    {(formData.geo.city || formData.geo.country) && (
+                    {(formData.geo?.city || formData.geo?.country) && (
                         <div className="px-2">
-                            {formData.geo.city && formData.geo.country
+                            {formData.geo?.city && formData.geo?.country
                                 ? `${formData.geo.city}, ${formData.geo.country}`
                                 : formData.geo.city || formData.geo.country}
                         </div>
@@ -34,7 +34,7 @@ function Template1({ formData }) {
                 </div>
             )}
 
-            {(formData.educations[0].schoolName ||
+            {formData.educations && (formData.educations[0].schoolName ||
                 formData.educations[0].fieldOfStudy ||
                 formData.educations[0].degree ||
                 formData.educations[0].grade ||
@@ -74,7 +74,7 @@ function Template1({ formData }) {
                 </div>
             )}
 
-            {(formData.certifications[0].name ||
+            {formData.certifications && (formData.certifications[0].name ||
                 formData.certifications[0].authority) && (
                 <div className="mt-2">
                     <div className="text-custom-large font-semibold">

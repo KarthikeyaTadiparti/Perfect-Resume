@@ -53,7 +53,7 @@ function Edit({
             let msg = error?.response?.data?.message;
             handleError(msg);
         }
-        //navigate
+        
     };
 
     const handleDownload = async () => {

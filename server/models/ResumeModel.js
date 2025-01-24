@@ -6,7 +6,7 @@ const resumeSchema = new Schema({
     lastName : String,
     email : String,
     mobile : String,
-    created_at : Date,
+    updated_at : Date,
     name : String,
 });
 

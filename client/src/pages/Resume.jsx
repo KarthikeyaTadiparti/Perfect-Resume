@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { handleError } from "../utils/utils";
 import { Link, useNavigate } from "react-router-dom";
+import Preview from "@/components/Preview";
 
 function Resume() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
@@ -24,9 +25,8 @@ function Resume() {
                     error.response?.data?.message ||
                     error.message ||
                     "An unknown error occurred";
-
-                console.error("Error fetching data:", errorMessage); // Log the error
-                handleError(errorMessage); // Pass the error to your error handler
+                console.error("Error fetching data:", errorMessage); 
+                handleError(errorMessage); 
             }
         };
         fetchData();
@@ -34,7 +34,6 @@ function Resume() {
 
     return (
         <div className="w-4/5 h-full mx-auto">
-            <br />
             <h1 className="text-3xl font-bold">
                 Welcome back, {UserInfo?.name}!
             </h1>
@@ -56,30 +55,24 @@ function Resume() {
                 My Resumes
             </h3>
             <div className="flex gap-4">
-                {UserInfo?.resumes &&
-                    UserInfo.resumes.length > 0 &&
+                {UserInfo.resumes.length > 0 &&
                     UserInfo.resumes.map((resume) => (
                         <div
-                            key={resume.id}
-                            className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow"
+                            key={resume._id}
+                            className="w-52 bg-white border border-gray-200 rounded-lg shadow"
                         >
-                            <a href="#">
-                                <img
-                                    className="rounded-t-lg"
-                                    src="/Images/Template Sample Images/image.png"
-                                    alt="Document Preview"
-                                />
-                            </a>
-                            <div className="p-5">
+                            
+                            <Preview className="w-full min-h-[70%] scale-[0.8]" formData={resume} selectedTemplate="template1"/>
+                            <div className="p-3">
                                 <a href="#">
-                                    <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900">
+                                    <h5 className="text-lg font-bold tracking-tight text-gray-900">
                                         {resume.name}
                                     </h5>
                                 </a>
-                                <p className="mb-3 text-sm font-normal text-gray-700">
+                                <p className="text-sm font-normal text-gray-700">
                                     Updated{" "}
                                     {new Date(
-                                        resume.modified_at
+                                        resume.updated_at
                                     ).toLocaleString("en-IN", {
                                         year: "numeric",
                                         month: "short",
