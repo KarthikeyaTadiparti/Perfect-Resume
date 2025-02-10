@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { FaTrash } from "react-icons/fa6";
-import { handleError, handleSuccess } from "@/utils/utils";
+import { handleError, handleSuccess } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
 const educationFormDefaultValues = {

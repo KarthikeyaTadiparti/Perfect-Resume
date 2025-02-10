@@ -1,12 +1,11 @@
 {
     "compilerOptions": {
-      "baseUrl": "src", // Base URL is the src folder
+      "baseUrl": ".", // Base URL is the src folder
       "paths": {
-        "@/components/*": ["components/*"], // Aliases "@/components" to "src/components"
-        "@/utils/*": ["utils/*"],           // Aliases "@/utils" to "src/utils"
-        "@/styles/*": ["../index.css"]      // Optional: For global styles
+        "@/*" : [
+          "./src/*"
+        ]
       }
-    },
-    "include": ["src/**/*"]
+    }
   }
   

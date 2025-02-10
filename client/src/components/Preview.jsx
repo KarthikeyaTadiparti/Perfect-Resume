@@ -1,6 +1,6 @@
 import React from "react";
 import Template1 from "./template1";
-import { cn } from "@/utils/utils";
+import { cn } from "@/lib/utils";
 
 function Preview({ formData, selectedTemplate, className, scaleFactor = 1 }) {
     return (

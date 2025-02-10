@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { handleError, handleSuccess } from "../utils/utils";
+import { handleError, handleSuccess } from "../lib/utils";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import { useDispatch, useSelector } from "react-redux";

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
-import { handleError } from "../utils/utils";
+import { handleError } from "../lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import Preview from "@/components/Preview";
 

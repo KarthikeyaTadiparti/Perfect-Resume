@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
 import { setCredentials } from "../slices/authSlice";
-import { handleError, handleSuccess } from "../utils/utils";
+import { handleError, handleSuccess } from "../lib/utils";
 import axios from "axios";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
