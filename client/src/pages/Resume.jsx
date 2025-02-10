@@ -25,8 +25,8 @@ function Resume() {
                     error.response?.data?.message ||
                     error.message ||
                     "An unknown error occurred";
-                console.error("Error fetching data:", errorMessage); 
-                handleError(errorMessage); 
+                console.error("Error fetching data:", errorMessage);
+                handleError(errorMessage);
             }
         };
         fetchData();
@@ -55,15 +55,21 @@ function Resume() {
                 My Resumes
             </h3>
             <div className="flex gap-4">
-                {UserInfo.resumes.length > 0 &&
+                {UserInfo.resumes?.length > 0 &&
                     UserInfo.resumes.map((resume) => (
                         <div
                             key={resume._id}
-                            className="w-52 bg-white border border-gray-200 rounded-lg shadow"
+                            className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow"
                         >
-                            
-                            <Preview className="w-full min-h-[70%] scale-[0.8]" formData={resume} selectedTemplate="template1"/>
-                            <div className="p-3">
+                            <div className="w-full h-[70%] overflow-hidden">
+                                <Preview
+                                    formData={resume}
+                                    selectedTemplate="template1"
+                                    scaleFactor={0.345}
+                                />
+                            </div>
+
+                            <div className="w-full p-3">
                                 <a href="#">
                                     <h5 className="text-lg font-bold tracking-tight text-gray-900">
                                         {resume.name}
@@ -71,15 +77,16 @@ function Resume() {
                                 </a>
                                 <p className="text-sm font-normal text-gray-700">
                                     Updated{" "}
-                                    {new Date(
-                                        resume.updated_at
-                                    ).toLocaleString("en-IN", {
-                                        year: "numeric",
-                                        month: "short",
-                                        day: "numeric",
-                                        hour: "2-digit",
-                                        minute: "2-digit",
-                                    })}
+                                    {new Date(resume.updated_at).toLocaleString(
+                                        "en-IN",
+                                        {
+                                            year: "numeric",
+                                            month: "short",
+                                            day: "numeric",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                        }
+                                    )}
                                 </p>
                             </div>
                         </div>
