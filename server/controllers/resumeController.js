@@ -19,9 +19,9 @@ getResumes = async (req, res) => {
 createResume = async (req, res) => {
     try {
         let id = req.user["id"];
-        console.log(id);
+        // console.log(id);
         let data = req.body;
-        console.log(data);
+        // console.log(data);
         const istDate = new Date();
 
         let newResume = new ResumeModel({
@@ -49,4 +49,9 @@ createResume = async (req, res) => {
     }
 };
 
-module.exports = { createResume, getResumes };
+editResume = async (req,res)=>{
+    let id = req.params.id;
+    res.send(id);
+}
+
+module.exports = { createResume, getResumes,editResume };

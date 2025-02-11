@@ -57,40 +57,42 @@ function Resume() {
             <div className="flex gap-4">
                 {UserInfo?.resumes?.length > 0 &&
                     UserInfo.resumes.map((resume) => (
-                        <div
-                            key={resume._id}
-                            className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow"
-                        >
-                            <div className="w-full h-[70%] overflow-hidden">
-                                <Preview
-                                    formData={resume}
-                                    selectedTemplate="template1"
-                                    scaleFactor={0.345}
-                                />
-                            </div>
+                        <Link to={`/resume/${resume._id}`} key={resume._id}>
+                            <div
+                                
+                                className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow"
+                            >
+                                <div className="w-full h-[70%] overflow-hidden">
+                                    <Preview
+                                        formData={resume}
+                                        selectedTemplate="template1"
+                                        scaleFactor={0.345}
+                                    />
+                                </div>
 
-                            <div className="w-full p-3">
-                                <a href="#">
-                                    <h5 className="text-lg font-bold tracking-tight text-gray-900">
-                                        {resume.name}
-                                    </h5>
-                                </a>
-                                <p className="text-sm font-normal text-gray-700">
-                                    Updated{" "}
-                                    {new Date(resume.updated_at).toLocaleString(
-                                        "en-IN",
-                                        {
+                                <div className="w-full p-3">
+                                    <a href="#">
+                                        <h5 className="text-lg font-bold tracking-tight text-gray-900">
+                                            {resume.name}
+                                        </h5>
+                                    </a>
+                                    <p className="text-sm font-normal text-gray-700">
+                                        Updated{" "}
+                                        {new Date(
+                                            resume.updated_at
+                                        ).toLocaleString("en-IN", {
                                             year: "numeric",
                                             month: "short",
                                             day: "numeric",
                                             hour: "2-digit",
                                             minute: "2-digit",
-                                        }
-                                    )}
-                                </p>
+                                        })}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
+
                 <Link to="/resume/new">
                     <div className="w-52 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow">
                         <i className="text-[60px] hover:text-pri-blue p-6 text-gray-200 fa-solid fa-plus"></i>

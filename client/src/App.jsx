@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Resume from "./pages/Resume";
 import Create from "./pages/Create";
+import Edit from "./pages/Edit";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import Demo from "./pages/Demo"
@@ -20,6 +21,7 @@ function App() {
                 <Route element={<PrivateRoute UserInfo={UserInfo} />}>
                     <Route path="/resume" element={<Resume />}></Route>
                     <Route path="/resume/new" element={<Create />}></Route>
+                    <Route path="/resume/:id" element={<Edit />}></Route>
                 </Route>
             </Route>
             

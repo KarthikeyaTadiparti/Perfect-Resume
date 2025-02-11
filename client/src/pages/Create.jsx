@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Edit from "../components/Edit";
+import EditFields from "../components/EditFields";
 import Preview from "../components/Preview";
 import { useForm, useFieldArray } from "react-hook-form";
 import {
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
+import { merge } from "lodash";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -40,7 +41,7 @@ const formDefaultValues = {
     certifications: [certificationFormDefaultValues],
 };
 
-function Create() {
+function Create({ resumeData }) {
     const { register, handleSubmit, getValues, control, reset, watch } =
         useForm({
             defaultValues: formDefaultValues,
@@ -55,10 +56,13 @@ function Create() {
     });
 
     console.log("GET", getValues());
-    // useEffect(() => {
-    //     reset({...formDefaultValues, firstName: 'Hareesh', lastName: 'Tadiparti'})
-    // }, [])
-    // console.log("GET", getValues());
+
+    useEffect(() => {
+        if (resumeData) {
+            const mergedData = merge({}, formDefaultValues, resumeData);
+            reset(mergedData);
+        }
+    }, [resumeData, reset]);
 
     const [selectedTemplate, setSelectedTemplate] = useState("template1");
 
@@ -151,7 +155,7 @@ function Create() {
 
             <div className="w-4/5 my-10 mx-auto flex gap-5 print:w-full print:h-full print:p-0 print:m-0">
                 <div className="w-full h-full print:hidden">
-                    <Edit
+                    <EditFields
                         handleSubmit={handleSubmit}
                         educationArrayFields={educationArrayFields}
                         certificationArrayFields={certificationArrayFields}

@@ -26,7 +26,7 @@ const certificationFormDefaultValues = {
     authority: "",
 };
 
-function Edit({
+function EditFields({
     handleSubmit,
     educationArrayFields,
     certificationArrayFields,
@@ -265,4 +265,4 @@ function Edit({
     );
 }
 
-export default Edit;
+export default EditFields;
