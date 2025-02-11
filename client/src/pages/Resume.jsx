@@ -55,7 +55,7 @@ function Resume() {
                 My Resumes
             </h3>
             <div className="flex gap-4">
-                {UserInfo.resumes?.length > 0 &&
+                {UserInfo?.resumes?.length > 0 &&
                     UserInfo.resumes.map((resume) => (
                         <div
                             key={resume._id}

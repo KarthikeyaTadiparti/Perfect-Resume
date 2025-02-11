@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const {createResume} = require("../controllers/resumeController");
+const {createResume,getResumes} = require("../controllers/resumeController");
+const { ensureAuthentication } = require("../middleware/authValidation");
 
-router.get("/", getResumes);
-router.post("/new", createResume);
+router.get("/", ensureAuthentication,getResumes);
+router.post("/new", ensureAuthentication,createResume);
 
 module.exports = router;

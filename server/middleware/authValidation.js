@@ -29,17 +29,18 @@ const loginValidation = (req, res, next) => {
 };
 
 const ensureAuthentication = (req, res, next) => {
-    let jwtToken = req.cookies.jwtToken;
-    console.log(jwtToken);
+    let jwtToken = req.cookies.jwt;
+    // console.log(jwtToken);
     if (!jwtToken)
-        return res.status(403).json({ message: "User must me logged in" });
+        return res.status(403).json({ message: "User must me logged in",success: false });
 
     try {
         let user = jwt.verify(jwtToken, process.env.JWT_SECRET);
         req.user = user;
+        // console.log(req.user);
         next();
     } catch (error) {
-        res.status(403).json({ message: "Invalid token" });
+        res.status(403).json({ message: "Invalid token",success: false });
     }
 };
 
