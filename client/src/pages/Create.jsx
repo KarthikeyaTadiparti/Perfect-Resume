@@ -11,9 +11,8 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { data } from "../data";
 import { merge } from "lodash";
+import { useLocation } from "react-router-dom";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -42,6 +41,10 @@ const formDefaultValues = {
 };
 
 function Create({ resumeData }) {
+    const location = useLocation();
+    const data = location.state?.mappedData;
+    // console.log("data : ",data);
+
     const { register, handleSubmit, getValues, control, reset, watch } =
         useForm({
             defaultValues: formDefaultValues,
@@ -58,65 +61,15 @@ function Create({ resumeData }) {
     console.log("GET", getValues());
 
     useEffect(() => {
-        if (resumeData) {
-            const mergedData = merge({}, formDefaultValues, resumeData);
+        console.log(data);
+        if (data) {
+            const mergedData = merge({}, formDefaultValues, data);
             reset(mergedData);
         }
-    }, [resumeData, reset]);
+    }, [data, reset]);
 
     const [selectedTemplate, setSelectedTemplate] = useState("template1");
-
     const formData = watch();
-
-    //Api
-    const options = {
-        method: "GET",
-        url: "https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url",
-        params: {
-            url: "https://www.linkedin.com/in/adamselipsky/",
-        },
-        headers: {
-            "x-rapidapi-key":
-                "3e9a3935f1mshf8b8c5d3f9f4eb7p1e8cecjsn1ec21de6aef5",
-            "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com",
-        },
-    };
-
-    const callApi = async () => {
-        try {
-            // const response = await axios.request(options);
-            // console.log("API Response:", response.data);
-
-            // const apiData = response.data;
-            // console.log("api : ", apiData.educations);
-
-            // console.log(data);
-            const apiData = data;
-            const mappedData = {
-                firstName: apiData.firstName || "",
-                lastName: apiData.lastName || "",
-                email: apiData.email || "",
-                mobile: apiData.mobile || "",
-                geo: {
-                    city: apiData.geo.city || "",
-                    country: apiData.geo.country || "",
-                },
-                headline: apiData.headline || "",
-                educations: [...apiData.educations] || [
-                    educationFormDefaultValues,
-                ],
-                certifications: apiData.certifications.map((certificate) => ({
-                    name: certificate.name || "",
-                    authority: certificate.authority || "",
-                })),
-            };
-
-            // Update the form using reset
-            reset(mappedData);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
 
     return (
         <div className="w-screen h-full">
@@ -161,15 +114,8 @@ function Create({ resumeData }) {
                         certificationArrayFields={certificationArrayFields}
                         register={register}
                     />
-                    <Button
-                        onClick={callApi}
-                        variant="destructive"
-                        className="mt-4"
-                    >
-                        Get Data
-                    </Button>
                 </div>
-                <div className="w-full h-full m-0 p-0">
+                <div className="w-full h-full">
                     <Preview
                         formData={formData}
                         selectedTemplate={selectedTemplate}

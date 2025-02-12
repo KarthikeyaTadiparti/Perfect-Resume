@@ -1,12 +1,18 @@
 import * as React from "react";
-
+import { cn } from "@/lib/utils";
 const Input = React.forwardRef(
     (
-        { labelName, placeholder = `Enter ${labelName}`, type, ...props },
+        {
+            labelName,
+            placeholder = `Enter ${labelName}`,
+            type,
+            className,
+            ...props
+        },
         ref
     ) => {
         return (
-            <div className="w-full max-w-sm mt-4">
+            <div className={cn("w-full max-w-sm mt-4", className)}>
                 <label
                     htmlFor={props.name}
                     className="block mb-2 text-sm text-slate-600"
