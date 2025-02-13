@@ -17,9 +17,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
+import FadeLoader from "react-spinners/FadeLoader";
 
 function Resume() {
     const [url, setUrl] = useState("");
+    const [loading, setLoading] = useState(false);
     const UserInfo = useSelector((state) => state.auth.UserInfo);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -64,39 +66,50 @@ function Resume() {
             // const response = await axios.request(options);
             // const apiData = response.data;
             // console.log("api : ", apiData);
-
-            console.log(data);
-            const apiData = data;
-            const mappedData = {
-                firstName: apiData.firstName || "",
-                lastName: apiData.lastName || "",
-                email: apiData.email || "",
-                mobile: apiData.mobile || "",
-                geo: {
-                    city: apiData.geo.city || "",
-                    country: apiData.geo.country || "",
-                },
-                headline: apiData.headline || "",
-                educations: [...apiData.educations] || [
-                    educationFormDefaultValues,
-                ],
-                certifications: apiData.certifications.map((certificate) => ({
-                    name: certificate.name || "",
-                    authority: certificate.authority || "",
-                })),
-            };
-            return mappedData;
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    console.log("data :", data);
+                    const apiData = data;
+                    const mappedData = {
+                        firstName: apiData.firstName || "",
+                        lastName: apiData.lastName || "",
+                        email: apiData.email || "",
+                        mobile: apiData.mobile || "",
+                        geo: {
+                            city: apiData.geo.city || "",
+                            country: apiData.geo.country || "",
+                        },
+                        headline: apiData.headline || "",
+                        educations: [...apiData.educations] || [
+                            educationFormDefaultValues,
+                        ],
+                        certifications: apiData.certifications.map(
+                            (certificate) => ({
+                                name: certificate.name || "",
+                                authority: certificate.authority || "",
+                            })
+                        ),
+                    };
+                    // return mappedData;
+                    resolve(mappedData);
+                }, 5000);
+            });
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-    const submit = async () => {
+    const submit = async (event) => {
+        event.preventDefault();
         console.log("url : " + url);
+        
+        setLoading(true);
         try {
             let mappedData = await callApi();
             navigate("/resume/new", { state: { mappedData } });
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     };
     return (
@@ -128,44 +141,59 @@ function Resume() {
                             Please Enter LinkedIn Profile URL
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="flex items-center space-x-2">
-                        <div className="grid flex-1 gap-2">
-                            <input
-                                id="link"
-                                name="link"
-                                className="w-full bg-transparent bg-gray-50 text-slate-700 text-sm border border-slate-200 rounded-md px-2 py-2 transition duration-300 focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm"
-                                placeholder="https://www.linkedin.com/in/user-name"
-                                onChange={(e) => setUrl(e.target.value)}
-                            />
+
+                    <form onSubmit={submit}>
+                        <div className="flex items-center space-x-2">
+                            <div className="grid flex-1 gap-2">
+                                <input
+                                    id="link"
+                                    name="link"
+                                    className="w-full bg-transparent bg-gray-50 text-slate-700 text-sm border border-slate-200 rounded-md px-2 py-2 transition duration-300 focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm"
+                                    placeholder="https://www.linkedin.com/in/user-name"
+                                    onChange={(e) => setUrl(e.target.value)}
+                                    required
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <DialogFooter className="sm:justify-start">
-                        <DialogClose asChild>
+
+                        <DialogFooter className="sm:justify-start mt-4">
                             <Button
-                                type="button"
-                                variant="secondary"
-                                onClick={submit}
+                                type="submit"
+                                variant="outline"
+                                disabled={loading}
                             >
-                                Submit
+                                {loading ? (
+                                    <span className="flex items-center justify-center">
+                                        Loading...
+                                        <div className="scale-[0.4] -ml-2">
+                                            <FadeLoader
+                                                color="#000000"
+                                                loading={loading}
+                                            />
+                                        </div>
+                                    </span>
+                                ) : (
+                                    "Submit"
+                                )}
                             </Button>
-                        </DialogClose>
-                    </DialogFooter>
+                        </DialogFooter>
+                    </form>
                 </DialogContent>
             </Dialog>
 
             <h3 className="text-md font-semibold my-4 text-gray-500">
                 My Resumes
             </h3>
-            <div className="flex gap-4">
+            <div className="w-full flex flex-wrap gap-6">
                 {UserInfo?.resumes?.length > 0 &&
                     UserInfo.resumes.map((resume) => (
                         <Link to={`/resume/${resume._id}`} key={resume._id}>
-                            <div className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow">
+                            <div className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow overflow-hidden">
                                 <div className="w-full h-[70%] overflow-hidden">
                                     <Preview
                                         formData={resume}
                                         selectedTemplate="template1"
-                                        scaleFactor={0.345}
+                                        scaleFactor={0.32}
                                     />
                                 </div>
 
