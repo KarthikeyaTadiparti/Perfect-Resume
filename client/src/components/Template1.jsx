@@ -34,12 +34,12 @@ function Template1({ formData }) {
                 </div>
             )}
 
-            {formData.educations && (formData.educations[0].schoolName ||
-                formData.educations[0].fieldOfStudy ||
-                formData.educations[0].degree ||
-                formData.educations[0].grade ||
-                formData.educations[0].start.year ||
-                formData.educations[0].end.year) && (
+            {formData.educations && (formData.educations[0]?.schoolName ||
+                formData.educations[0]?.fieldOfStudy ||
+                formData.educations[0]?.degree ||
+                formData.educations[0]?.grade ||
+                formData.educations[0]?.start.year ||
+                formData.educations[0]?.end.year) && (
                 <div className="mt-2">
                     <div className="text-custom-large font-semibold">
                         Education
@@ -74,8 +74,8 @@ function Template1({ formData }) {
                 </div>
             )}
 
-            {formData.certifications && (formData.certifications[0].name ||
-                formData.certifications[0].authority) && (
+            {formData.certifications && (formData.certifications[0]?.name ||
+                formData.certifications[0]?.authority) && (
                 <div className="mt-2">
                     <div className="text-custom-large font-semibold">
                         Certifications

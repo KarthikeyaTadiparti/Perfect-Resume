@@ -6,13 +6,29 @@ const resumeSchema = new Schema({
     lastName: String,
     email: String,
     mobile: String,
-    updated_at: Date,
     geo: {
         city: String,
         country: String,
     },
-    headline : String,
+    headline: String,
+    educations: [
+        {
+            start: { year: String },
+            end: { year: String },
+            fieldOfStudy: String,
+            degree: String,
+            grade: String,
+            schoolName: String,
+        },
+    ],
+    certifications: [
+        {
+            name: String,
+            authority: String,
+        },
+    ],
     name: String,
+    updated_at: Date,
 });
 
 module.exports = mongoose.model("Resume", resumeSchema);

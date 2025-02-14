@@ -35,10 +35,10 @@ function Resume() {
                 });
                 // console.log(response);
                 let result = response.data;
-                console.log("User : ",result.user);
+                console.log("User : ", result.user);
                 dispatch(setCredentials(result.user));
                 dispatch(removeResumeInfo());
-                console.log("Removed ResumeInfo : ",ResumeInfo);
+                console.log("Removed ResumeInfo : ", ResumeInfo);
             } catch (error) {
                 const errorMessage =
                     error.response?.data?.message ||
@@ -84,9 +84,16 @@ function Resume() {
                             country: apiData.geo.country || "",
                         },
                         headline: apiData.headline || "",
-                        educations: [...apiData.educations] || [
-                            educationFormDefaultValues,
-                        ],
+
+                        educations: apiData.educations.map((education) => ({
+                            schoolName: education.schoolName || "",
+                            start: { year: education.start.year || "" },
+                            end: { year: education.end.year || "" },
+                            fieldOfStudy: education.fieldOfStudy || "",
+                            degree: education.degree || "",
+                            grade: education.grade || "",
+                        })),
+
                         certifications: apiData.certifications.map(
                             (certificate) => ({
                                 name: certificate.name || "",
@@ -203,11 +210,9 @@ function Resume() {
                                 </div>
 
                                 <div className="w-full p-3">
-                                    <a href="#">
-                                        <h5 className="text-lg font-bold tracking-tight text-gray-900">
-                                            {resume.name}
-                                        </h5>
-                                    </a>
+                                    <h5 className="text-lg font-bold tracking-tight text-gray-900">
+                                        {resume.name}
+                                    </h5>
                                     <p className="text-sm font-normal text-gray-700">
                                         Updated{" "}
                                         {new Date(

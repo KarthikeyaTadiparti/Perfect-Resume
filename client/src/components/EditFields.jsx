@@ -18,8 +18,8 @@ const educationFormDefaultValues = {
     degree: "",
     fieldOfStudy: "",
     grade: "",
-    start: "",
-    end: "",
+    start: {year : ""},
+    end: {year : ""},
 };
 const certificationFormDefaultValues = {
     name: "",
@@ -159,6 +159,7 @@ function EditFields({
                                         )}
                                     />
                                     <Button
+                                        type="button"
                                         onClick={() => {
                                             if (
                                                 educationArrayFields.fields
@@ -221,6 +222,7 @@ function EditFields({
                                         )}
                                     />
                                     <Button
+                                        type="button"
                                         onClick={() => {
                                             if (
                                                 certificationArrayFields.fields
@@ -247,7 +249,11 @@ function EditFields({
                                 <button
                                     type="button"
                                     className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue"
-                                    onClick={() => {}}
+                                    onClick={() =>
+                                        certificationArrayFields.append(
+                                            certificationFormDefaultValues
+                                        )
+                                    }
                                 >
                                     Add Another Certification
                                 </button>
