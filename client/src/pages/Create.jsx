@@ -12,7 +12,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { merge } from "lodash";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -40,10 +40,8 @@ const formDefaultValues = {
     certifications: [certificationFormDefaultValues],
 };
 
-function Create({ resumeData }) {
-    const location = useLocation();
-    const data = location.state?.mappedData;
-    // console.log("data : ",data);
+function Create() {
+    const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
 
     const { register, handleSubmit, getValues, control, reset, watch } =
         useForm({
@@ -58,15 +56,15 @@ function Create({ resumeData }) {
         name: "certifications",
     });
 
-    console.log("GET", getValues());
+    // console.log("GET", getValues());
 
     useEffect(() => {
-        console.log(data);
-        if (data) {
-            const mergedData = merge({}, formDefaultValues, data);
+        console.log("In create page : ",ResumeInfo);
+        if (ResumeInfo) {
+            const mergedData = merge({}, formDefaultValues, ResumeInfo);
             reset(mergedData);
         }
-    }, [data, reset]);
+    }, [ResumeInfo, reset]);
 
     const [selectedTemplate, setSelectedTemplate] = useState("template1");
     const formData = watch();

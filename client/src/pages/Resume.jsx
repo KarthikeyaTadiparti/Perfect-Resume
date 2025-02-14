@@ -18,11 +18,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
 import FadeLoader from "react-spinners/FadeLoader";
+import { removeResumeInfo, setResumeInfo } from "@/slices/resumeSlice";
 
 function Resume() {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const UserInfo = useSelector((state) => state.auth.UserInfo);
+    const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -33,8 +35,10 @@ function Resume() {
                 });
                 // console.log(response);
                 let result = response.data;
-                console.log(result.user);
+                console.log("User : ",result.user);
                 dispatch(setCredentials(result.user));
+                dispatch(removeResumeInfo());
+                console.log("Removed ResumeInfo : ",ResumeInfo);
             } catch (error) {
                 const errorMessage =
                     error.response?.data?.message ||
@@ -101,11 +105,12 @@ function Resume() {
     const submit = async (event) => {
         event.preventDefault();
         console.log("url : " + url);
-        
+
         setLoading(true);
         try {
             let mappedData = await callApi();
-            navigate("/resume/new", { state: { mappedData } });
+            dispatch(setResumeInfo(mappedData));
+            navigate("/resume/new");
         } catch (error) {
             console.log(error);
         } finally {
@@ -188,12 +193,12 @@ function Resume() {
                 {UserInfo?.resumes?.length > 0 &&
                     UserInfo.resumes.map((resume) => (
                         <Link to={`/resume/${resume._id}`} key={resume._id}>
-                            <div className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow overflow-hidden">
+                            <div className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all overflow-hidden">
                                 <div className="w-full h-[70%] overflow-hidden">
                                     <Preview
                                         formData={resume}
                                         selectedTemplate="template1"
-                                        scaleFactor={0.32}
+                                        scaleFactor={0.345}
                                     />
                                 </div>
 
@@ -221,7 +226,7 @@ function Resume() {
                     ))}
 
                 <Link to="/resume/new">
-                    <div className="w-52 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow">
+                    <div className="w-52 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all">
                         <i className="text-[60px] hover:text-pri-blue p-6 text-gray-200 fa-solid fa-plus"></i>
                     </div>
                 </Link>

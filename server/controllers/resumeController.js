@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 const ResumeModel = require("../models/ResumeModel");
 const UserModel = require("../models/UserModel");
 const jwt = require("jsonwebtoken");
@@ -49,9 +50,19 @@ createResume = async (req, res) => {
     }
 };
 
-editResume = async (req,res)=>{
+editResume = async (req, res) => {
     let id = req.params.id;
-    res.send(id);
-}
+    // console.log(id);
+    try {
+        let resume = await ResumeModel.findById(id);
+        console.log("Resume Info : ", resume);
+        return res.status(201).json({
+            resume: resume,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal server error." });
+    }
+};
 
-module.exports = { createResume, getResumes,editResume };
+module.exports = { createResume, getResumes, editResume };
