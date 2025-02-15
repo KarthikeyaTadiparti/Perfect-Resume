@@ -23,11 +23,11 @@ createResume = async (req, res) => {
         // console.log(id);
         let data = req.body;
         // console.log(data);
-        const istDate = new Date();
+        const date = new Date();
 
         let newResume = new ResumeModel({
             ...data,
-            updated_at: istDate,
+            updated_at: date,
             name: data.name || "Untitled Resume",
         });
         // console.log(newResume);
@@ -55,7 +55,7 @@ editResume = async (req, res) => {
     // console.log(id);
     try {
         let resume = await ResumeModel.findById(id);
-        console.log("Resume Info : ", resume);
+        // console.log("Resume Info : ", resume);
         return res.status(201).json({
             resume: resume,
         });
@@ -99,4 +99,40 @@ const deleteResume = async (req, res) => {
     }
 };
 
-module.exports = { createResume, getResumes, editResume, deleteResume };
+const updateResume = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+        const date = new Date();
+
+        // console.log("data : ", data);
+        // console.log("resume id : ", id);
+
+        const updatedResume = await ResumeModel.findByIdAndUpdate(
+            id,
+            { ...data, updated_at: date },
+            { new: true }
+        );
+
+        if (!updatedResume) {
+            return res.status(404).json({ error: "Resume not found" });
+        }
+
+        console.log(updatedResume);
+        res.status(200).json({
+            message: "Resume updated successfully!",
+            resume: updatedResume,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal server error." });
+    }
+};
+
+module.exports = {
+    createResume,
+    getResumes,
+    editResume,
+    deleteResume,
+    updateResume,
+};

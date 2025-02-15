@@ -11,15 +11,15 @@ import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { FaTrash } from "react-icons/fa6";
 import { handleError, handleSuccess } from "@/lib/utils";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const educationFormDefaultValues = {
     schoolName: "",
     degree: "",
     fieldOfStudy: "",
     grade: "",
-    start: {year : ""},
-    end: {year : ""},
+    start: { year: "" },
+    end: { year: "" },
 };
 const certificationFormDefaultValues = {
     name: "",
@@ -33,27 +33,52 @@ function EditFields({
     register,
 }) {
     const navigate = useNavigate();
+    const { id } = useParams();
+    console.log("resume id : ", id);
+
     const onSubmit = async (data) => {
         // console.log(data);
-        //send to db
-        try {
-            let response = await axios.post(
-                "http://localhost:3000/resume/new",
-                data,
-                {
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
-                }
-            );
-            console.log(response);
-            handleSuccess(response.data.message);
-            navigate("/resume");
-        } catch (error) {
-            console.log(error);
-            let msg = error?.response?.data?.message;
-            handleError(msg);
+
+        //creates new resume
+        if (!id) {
+            try {
+                let response = await axios.post(
+                    "http://localhost:3000/resume/new",
+                    data,
+                    {
+                        headers: { "Content-Type": "application/json" },
+                        withCredentials: true,
+                    }
+                );
+                console.log(response);
+                handleSuccess(response.data.message);
+                navigate("/resume");
+            } catch (error) {
+                console.log(error);
+                let msg = error?.response?.data?.message;
+                handleError(msg);
+            }
         }
-        
+        //updates the existing resume
+        else {
+            try {
+                let response = await axios.put(
+                    `http://localhost:3000/resume/${id}`,
+                    data,
+                    {
+                        headers: { "Content-Type": "application/json" },
+                        withCredentials: true,
+                    }
+                );
+                console.log(response);
+                handleSuccess(response.data.message);
+                navigate("/resume");
+            } catch (error) {
+                console.log(error);
+                let msg = error?.response?.data?.message;
+                handleError(msg);
+            }
+        }
     };
 
     const handleDownload = async () => {

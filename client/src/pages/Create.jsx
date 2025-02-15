@@ -59,7 +59,7 @@ function Create() {
     // console.log("GET", getValues());
 
     useEffect(() => {
-        console.log("In create page : ",ResumeInfo);
+        console.log("In create page : ", ResumeInfo);
         if (ResumeInfo) {
             const mergedData = merge({}, formDefaultValues, ResumeInfo);
             reset(mergedData);
