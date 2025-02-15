@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
-import { handleError } from "../lib/utils";
+import { handleError, handleSuccess } from "../lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import Preview from "@/components/Preview";
 import {
@@ -15,6 +15,15 @@ import {
     DialogFooter,
     DialogClose,
 } from "@/components/ui/dialog";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
 import FadeLoader from "react-spinners/FadeLoader";
@@ -40,10 +49,7 @@ function Resume() {
                 dispatch(removeResumeInfo());
                 console.log("Removed ResumeInfo : ", ResumeInfo);
             } catch (error) {
-                const errorMessage =
-                    error.response?.data?.message ||
-                    error.message ||
-                    "An unknown error occurred";
+                const errorMessage = error.response?.data?.message;
                 console.error("Error fetching data:", errorMessage);
                 handleError(errorMessage);
             }
@@ -109,6 +115,7 @@ function Resume() {
             console.error("Error fetching data:", error);
         }
     };
+
     const submit = async (event) => {
         event.preventDefault();
         console.log("url : " + url);
@@ -122,6 +129,31 @@ function Resume() {
             console.log(error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const renameResume = async (id) => {
+        console.log("renaming : ", id);
+    };
+
+    const deleteResume = async (id) => {
+        console.log("deleting : ", id);
+        try {
+            const response = await axios.delete(
+                `http://localhost:3000/resume/${id}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            const result = response.data;
+            // console.log(result);
+            handleSuccess(result.message);
+            dispatch(setCredentials(result.user));
+            console.log(result.user);
+        } catch (error) {
+            let msg = error?.response?.data?.message;
+            handleError(msg);
+            console.log("Unable to delete resume : ", error);
         }
     };
     return (
@@ -196,24 +228,58 @@ function Resume() {
             <h3 className="text-md font-semibold my-4 text-gray-500">
                 My Resumes
             </h3>
-            <div className="w-full flex flex-wrap gap-6">
+            <div className="w-full flex flex-wrap gap-5">
                 {UserInfo?.resumes?.length > 0 &&
                     UserInfo.resumes.map((resume) => (
                         <Link to={`/resume/${resume._id}`} key={resume._id}>
-                            <div className="w-52 h-72 bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all overflow-hidden">
+                            <div className="w-56 h-72 bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all overflow-hidden">
                                 <div className="w-full h-[70%] overflow-hidden">
                                     <Preview
                                         formData={resume}
                                         selectedTemplate="template1"
-                                        scaleFactor={0.345}
+                                        scaleFactor={0.37}
                                     />
                                 </div>
 
-                                <div className="w-full p-3">
-                                    <h5 className="text-lg font-bold tracking-tight text-gray-900">
-                                        {resume.name}
-                                    </h5>
-                                    <p className="text-sm font-normal text-gray-700">
+                                <div className="w-full p-4">
+                                    <div className="flex justify-between items-center">
+                                        <h5 className="text-lg font-bold tracking-tight text-gray-900">
+                                            {resume.name}
+                                        </h5>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger
+                                                onClick={(e) =>
+                                                    e.preventDefault()
+                                                }
+                                            >
+                                                <HiOutlineDotsHorizontal className="scale-[1.2]" />
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent>
+                                                <DropdownMenuItem
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        renameResume(
+                                                            resume._id
+                                                        );
+                                                    }}
+                                                >
+                                                    Rename
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        deleteResume(
+                                                            resume._id
+                                                        );
+                                                    }}
+                                                >
+                                                    Delete
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </div>
+
+                                    <p className="text-xs font-normal text-gray-700">
                                         Updated{" "}
                                         {new Date(
                                             resume.updated_at
@@ -231,7 +297,7 @@ function Resume() {
                     ))}
 
                 <Link to="/resume/new">
-                    <div className="w-52 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all">
+                    <div className="w-56 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all">
                         <i className="text-[60px] hover:text-pri-blue p-6 text-gray-200 fa-solid fa-plus"></i>
                     </div>
                 </Link>

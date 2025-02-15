@@ -9,7 +9,7 @@ getResumes = async (req, res) => {
         let user = await UserModel.findById(id)
             .populate("resumes")
             .select("-password");
-        console.log(user);
+        // console.log(user);
         return res.status(201).json({ message: "success", user: user });
     } catch (error) {
         console.log("Error verifying JWT:", error);
@@ -65,4 +65,38 @@ editResume = async (req, res) => {
     }
 };
 
-module.exports = { createResume, getResumes, editResume };
+const deleteResume = async (req, res) => {
+    try {
+        let id = req.params.id;
+        // console.log("Resume ID:", id);
+
+        const userId = req.user["id"];
+        // console.log("User ID:", userId);
+
+        const resume = await ResumeModel.findById(id);
+        if (!resume) {
+            return res.status(404).json({ message: "Resume not found" });
+        }
+        await ResumeModel.findByIdAndDelete(id);
+
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            userId,
+            { $pull: { resumes: id } },
+            { new: true }
+        )
+            .populate("resumes")
+            .select("-password");
+
+        // console.log("Updated User:", updatedUser);
+
+        return res.status(200).json({
+            message: "Resume deleted successfully",
+            user: updatedUser,
+        });
+    } catch (error) {
+        console.error("Error deleting resume:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+module.exports = { createResume, getResumes, editResume, deleteResume };
