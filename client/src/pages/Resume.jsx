@@ -60,14 +60,13 @@ function Resume() {
     //Api
     const options = {
         method: "GET",
-        url: "https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url",
+        url: import.meta.env.VITE_LINKEDIN_API_URL,
         params: {
             url: url,
         },
         headers: {
-            "x-rapidapi-key":
-                "3e9a3935f1mshf8b8c5d3f9f4eb7p1e8cecjsn1ec21de6aef5",
-            "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com",
+            "x-rapidapi-key": import.meta.env.VITE_RAPIDAPI_KEY,
+            "x-rapidapi-host": import.meta.env.VITE_RAPIDAPI_HOST,
         },
     };
 
