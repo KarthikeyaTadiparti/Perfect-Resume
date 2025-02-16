@@ -60,7 +60,7 @@ function EditFields({
         if (!id) {
             try {
                 let response = await axios.post(
-                    "http://localhost:3000/resume/new",
+                    `${import.meta.env.VITE_API_URL}/resume/new`,
                     data,
                     {
                         headers: { "Content-Type": "application/json" },
@@ -80,7 +80,7 @@ function EditFields({
         else {
             try {
                 let response = await axios.put(
-                    `http://localhost:3000/resume/${id}`,
+                    `${import.meta.env.VITE_API_URL}/resume/${id}`,
                     data,
                     {
                         headers: { "Content-Type": "application/json" },

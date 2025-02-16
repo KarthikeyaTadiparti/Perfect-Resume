@@ -27,7 +27,7 @@ function Login() {
 
         try {
             let response = await axios.post(
-                "http://localhost:3000/auth/login",
+                `${import.meta.env.VITE_API_URL}/auth/login`,
                 formData,
                 {
                     headers: { "Content-Type": "application/json" },

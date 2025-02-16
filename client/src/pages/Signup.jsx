@@ -27,7 +27,7 @@ function Signup() {
         event.preventDefault();
         try {
             let response = await axios.post(
-                "http://localhost:3000/auth/signup",
+                `${import.meta.env.VITE_API_URL}/auth/signup`,
                 formData,
                 {
                     headers: { "Content-Type": "application/json" },

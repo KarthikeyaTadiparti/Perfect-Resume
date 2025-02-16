@@ -39,7 +39,7 @@ function Resume() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let response = await axios.get("http://localhost:3000/resume", {
+                let response = await axios.get(`${import.meta.env.VITE_API_URL}/resume`, {
                     withCredentials: true,
                 });
                 // console.log(response);
@@ -160,7 +160,7 @@ function Resume() {
         console.log("deleting : ", id);
         try {
             const response = await axios.delete(
-                `http://localhost:3000/resume/${id}`,
+                `${import.meta.env.VITE_API_URL}/resume/${id}`,
                 {
                     withCredentials: true,
                 }

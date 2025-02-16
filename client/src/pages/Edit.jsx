@@ -12,7 +12,7 @@ function Edit() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(
-                `http://localhost:3000/resume/${id}`,
+                `${import.meta.env.VITE_API_URL}/resume/${id}`,
                 {
                     withCredentials: true,
                 }
