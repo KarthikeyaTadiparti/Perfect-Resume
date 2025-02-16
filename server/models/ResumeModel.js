@@ -39,6 +39,14 @@ const resumeSchema = new Schema({
             end: { year: String },
         },
     ],
+    projects: [
+        {
+            title: String,
+            description: String,
+            technologies: String,
+            links: String,
+        },
+    ],
 });
 
 module.exports = mongoose.model("Resume", resumeSchema);

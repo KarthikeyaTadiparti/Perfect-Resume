@@ -75,33 +75,6 @@ function Template1({ formData }) {
                     </div>
                 )}
 
-            {formData.certifications &&
-                (formData.certifications[0]?.name ||
-                    formData.certifications[0]?.authority) && (
-                    <div className="mt-2">
-                        <div className="text-custom-large font-semibold">
-                            Certifications
-                        </div>
-                        <hr className="border-gray-600" />
-                        {formData.certifications.map((certificate, idx) => (
-                            <div
-                                key={idx}
-                                className="mt-1 text-custom-small leading-tight flex"
-                            >
-                                {certificate.name && (
-                                    <div>{certificate.name}</div>
-                                )}
-                                {certificate.authority && (
-                                    <div className="ml-1 ">
-                                        by{" "}
-                                        <strong>{certificate.authority}</strong>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                )}
-
             {formData.experiences &&
                 (formData.experiences[0]?.companyName ||
                     formData.experiences[0]?.title ||
@@ -151,6 +124,84 @@ function Template1({ formData }) {
                                 {ex.description && (
                                     <div className="ml-2 px-2 text-custom-small mt-2 text-justify leading-tight">
                                         {ex.description}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+            {formData.projects &&
+                (formData.projects[0]?.title ||
+                    formData.projects[0]?.description ||
+                    formData.projects[0]?.technologies ||
+                    formData.projects[0]?.links) && (
+                    <div className="mt-2">
+                        <div className="text-custom-large font-semibold">
+                            Projects
+                        </div>
+
+                        <hr className="border-gray-600" />
+
+                        {formData.projects.map((pro, idx) => (
+                            <div
+                                key={idx}
+                                className="mt-1 text-custom-small leading-tight"
+                            >
+                                <div className="flex justify-between">
+                                    <div className="mt-2 text-custom-medium font-semibold">
+                                        {pro.title && (
+                                            <div className="px-2">
+                                                {pro.title}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-2 text-custom-medium font-normal">
+                                        {pro.technologies && (
+                                            <div className="px-2">
+                                                {pro.technologies}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {pro.links && (
+                                    <div className="px-2 text-custom-small mt-1">
+                                        <b>Link : </b>
+                                        {pro.links}
+                                    </div>
+                                )}
+                                {pro.description && (
+                                    <div className="ml-2 px-2 text-custom-small mt-2 text-justify leading-tight">
+                                        {pro.description}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+            {formData.certifications &&
+                (formData.certifications[0]?.name ||
+                    formData.certifications[0]?.authority) && (
+                    <div className="mt-2">
+                        <div className="text-custom-large font-semibold">
+                            Certifications
+                        </div>
+                        <hr className="border-gray-600" />
+                        {formData.certifications.map((certificate, idx) => (
+                            <div
+                                key={idx}
+                                className="mt-1 text-custom-small leading-tight flex"
+                            >
+                                {certificate.name && (
+                                    <div>{certificate.name}</div>
+                                )}
+                                {certificate.authority && (
+                                    <div className="ml-1 ">
+                                        by{" "}
+                                        <strong>{certificate.authority}</strong>
                                     </div>
                                 )}
                             </div>

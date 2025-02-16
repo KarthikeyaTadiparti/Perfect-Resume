@@ -34,6 +34,12 @@ const experienceFormDefaultValues = {
     start: { year: "" },
     end: { year: "" },
 };
+const projectFormDefaultValues = {
+    title: "",
+    description: "",
+    technologies : "",
+    links : "",
+};
 const formDefaultValues = {
     firstName: "",
     lastName: "",
@@ -47,6 +53,7 @@ const formDefaultValues = {
     educations: [educationFormDefaultValues],
     certifications: [certificationFormDefaultValues],
     experiences: [experienceFormDefaultValues],
+    projects : [projectFormDefaultValues],
 };
 
 function Create() {
@@ -67,6 +74,10 @@ function Create() {
     const experienceArrayFields = useFieldArray({
         control,
         name: "experiences",
+    });
+    const projectArrayFields = useFieldArray({
+        control,
+        name: "projects",
     });
 
     console.log("GET", getValues());
@@ -124,6 +135,7 @@ function Create() {
                         educationArrayFields={educationArrayFields}
                         certificationArrayFields={certificationArrayFields}
                         experienceArrayFields={experienceArrayFields}
+                        projectArrayFields={projectArrayFields}
                         register={register}
                     />
                 </div>
