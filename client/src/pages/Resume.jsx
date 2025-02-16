@@ -100,6 +100,26 @@ function Resume() {
                             grade: education.grade || "",
                         })),
 
+                        experiences: apiData.position.map((experience) => ({
+                            companyName: experience.companyName || "",
+                            start: { year: experience.start.year || "" },
+                            end: { year: experience.end.year || "" },
+                            title: experience.title || "",
+                            description: experience.description || "",
+                            location:
+                                experience.location
+                                    .split(",")
+                                    .slice(0, 2)
+                                    .join(", ") || "",
+                        })),
+
+                        projects: apiData.projects.items.map((project) => ({
+                            title: project.title || "",
+                            description: project.description || "",
+                            technologies: project.technologies || "",
+                            links: project.links || "",
+                        })),
+
                         certifications: apiData.certifications.map(
                             (certificate) => ({
                                 name: certificate.name || "",
