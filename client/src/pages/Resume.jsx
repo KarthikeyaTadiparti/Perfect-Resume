@@ -257,7 +257,7 @@ function Resume() {
                                     <Preview
                                         formData={resume}
                                         selectedTemplate="template1"
-                                        scaleFactor={0.37}
+                                        scaleFactor={0.28}
                                     />
                                 </div>
 

@@ -129,7 +129,7 @@ function Create() {
             </Sheet>
 
             <div className="w-4/5 my-10 mx-auto flex gap-5 print:w-full print:h-full print:p-0 print:m-0">
-                <div className="w-full h-full print:hidden">
+                <div className="w-1/3 h-full print:hidden">
                     <EditFields
                         handleSubmit={handleSubmit}
                         educationArrayFields={educationArrayFields}
@@ -139,7 +139,7 @@ function Create() {
                         register={register}
                     />
                 </div>
-                <div className="w-full h-full">
+                <div className="w-2/3 h-full">
                     <Preview
                         formData={formData}
                         selectedTemplate={selectedTemplate}

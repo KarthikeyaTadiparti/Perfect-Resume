@@ -6,7 +6,7 @@ function Preview({ formData, selectedTemplate, className, scaleFactor = 1 }) {
     return (
         <div
             className={cn(
-                "w-[595px] min-h-[842px] bg-white border-none shadow-none print:w-full print:h-full",
+                "w-[800px] min-h-[842px] bg-white border-none shadow-none print:w-full print:h-full",
                 className
             )}
             style={{
