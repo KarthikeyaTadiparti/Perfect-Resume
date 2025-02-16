@@ -7,6 +7,7 @@ import { handleSuccess } from "../lib/utils";
 
 function Navbar() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
+    const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -16,7 +17,10 @@ function Navbar() {
                 `${import.meta.env.VITE_API_URL}/auth/logout`,
                 {},
                 {
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
                     withCredentials: true,
                 }
             );

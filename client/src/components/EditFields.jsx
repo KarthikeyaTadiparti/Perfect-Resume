@@ -13,6 +13,7 @@ import { FaTrash } from "react-icons/fa6";
 import { handleError, handleSuccess } from "@/lib/utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -49,6 +50,7 @@ function EditFields({
     projectArrayFields,
     register,
 }) {
+    const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
     const { id } = useParams();
     console.log("resume id : ", id);
@@ -63,7 +65,10 @@ function EditFields({
                     `${import.meta.env.VITE_API_URL}/resume/new`,
                     data,
                     {
-                        headers: { "Content-Type": "application/json" },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
                         withCredentials: true,
                     }
                 );
@@ -83,7 +88,10 @@ function EditFields({
                     `${import.meta.env.VITE_API_URL}/resume/${id}`,
                     data,
                     {
-                        headers: { "Content-Type": "application/json" },
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
                         withCredentials: true,
                     }
                 );
@@ -105,7 +113,6 @@ function EditFields({
     return (
         <div className="print:hidden">
             <form onSubmit={handleSubmit(onSubmit)}>
-                
                 <Accordion type="single" collapsible>
                     {/* Accordion for Personal Information */}
                     <AccordionItem value="item-1">

@@ -17,8 +17,7 @@ function Signup() {
     const dispatch = useDispatch();
 
     const UserInfo = useSelector((state) => state.auth.UserInfo);
-
-
+    const token = useSelector((state) => state.auth.token);
     const handleChanges = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
@@ -30,13 +29,19 @@ function Signup() {
                 `${import.meta.env.VITE_API_URL}/auth/signup`,
                 formData,
                 {
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
                     withCredentials: true,
                 }
             );
             // console.log(response.data);
             let result = response.data;
-            dispatch(setCredentials(result.user));
+            dispatch(
+                setCredentials({ UserInfo: result.user, token: result.token })
+            );
+
             if (result.success) {
                 handleSuccess(result.message);
                 navigate("/resume");

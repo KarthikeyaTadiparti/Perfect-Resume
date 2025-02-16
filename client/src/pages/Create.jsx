@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import EditFields from "../components/EditFields";
 import Preview from "../components/Preview";
@@ -58,7 +57,7 @@ const formDefaultValues = {
 
 function Create() {
     const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
-
+    
     const { register, handleSubmit, getValues, control, reset, watch } =
         useForm({
             defaultValues: formDefaultValues,

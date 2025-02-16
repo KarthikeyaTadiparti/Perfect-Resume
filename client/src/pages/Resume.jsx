@@ -34,18 +34,25 @@ function Resume() {
     const [loading, setLoading] = useState(false);
     const UserInfo = useSelector((state) => state.auth.UserInfo);
     const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
+    const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let response = await axios.get(`${import.meta.env.VITE_API_URL}/resume`, {
-                    withCredentials: true,
-                });
-                // console.log(response);
+                let response = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/resume`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                        withCredentials: true,
+                    }
+                );
+                console.log(response);
                 let result = response.data;
                 console.log("User : ", result.user);
-                dispatch(setCredentials(result.user));
+                dispatch(setCredentials({UserInfo : result.user,token : token}));
                 dispatch(removeResumeInfo());
                 console.log("Removed ResumeInfo : ", ResumeInfo);
             } catch (error) {
@@ -161,13 +168,16 @@ function Resume() {
             const response = await axios.delete(
                 `${import.meta.env.VITE_API_URL}/resume/${id}`,
                 {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                     withCredentials: true,
                 }
             );
             const result = response.data;
             // console.log(result);
             handleSuccess(result.message);
-            dispatch(setCredentials(result.user));
+            dispatch(setCredentials({UserInfo : result.user,token : token}));
             console.log(result.user);
         } catch (error) {
             let msg = error?.response?.data?.message;
