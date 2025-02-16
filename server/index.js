@@ -20,6 +20,6 @@ app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/resume",resumeRouter);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server is listening to port 3000");
 });
