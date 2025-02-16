@@ -12,6 +12,7 @@ import { Input } from "./ui/input";
 import { FaTrash } from "react-icons/fa6";
 import { handleError, handleSuccess } from "@/lib/utils";
 import { useNavigate, useParams } from "react-router-dom";
+import { FiPlus } from "react-icons/fi";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -25,11 +26,20 @@ const certificationFormDefaultValues = {
     name: "",
     authority: "",
 };
+const experienceFormDefaultValues = {
+    companyName: "",
+    title: "",
+    location: "",
+    description: "",
+    start: { year: "" },
+    end: { year: "" },
+};
 
 function EditFields({
     handleSubmit,
     educationArrayFields,
     certificationArrayFields,
+    experienceArrayFields,
     register,
 }) {
     const navigate = useNavigate();
@@ -191,7 +201,7 @@ function EditFields({
                                                     .length === 1
                                             ) {
                                                 return handleError(
-                                                    "It must have at least one Education Field"
+                                                    "There must be atleast at least one Education Field"
                                                 );
                                             } else {
                                                 educationArrayFields.remove(
@@ -210,17 +220,17 @@ function EditFields({
                             ))}
 
                             <div className="px-8">
-                                <button
+                                <Button
                                     type="button"
-                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue"
+                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue flex justify-center items-center"
                                     onClick={() =>
                                         educationArrayFields.append(
                                             educationFormDefaultValues
                                         )
                                     }
                                 >
-                                    Add Another Education
-                                </button>
+                                    <FiPlus /> Add Education
+                                </Button>
                             </div>
                         </AccordionContent>
                     </AccordionItem>
@@ -254,7 +264,7 @@ function EditFields({
                                                     .length === 1
                                             ) {
                                                 return handleError(
-                                                    "It must have at least one Certification Field"
+                                                    "There must be atleast at least one Certification Field"
                                                 );
                                             } else {
                                                 certificationArrayFields.remove(
@@ -271,17 +281,115 @@ function EditFields({
                             ))}
 
                             <div className="px-8">
-                                <button
+                                <Button
                                     type="button"
-                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue"
+                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue flex justify-center items-center"
                                     onClick={() =>
                                         certificationArrayFields.append(
                                             certificationFormDefaultValues
                                         )
                                     }
                                 >
-                                    Add Another Certification
-                                </button>
+                                    <FiPlus /> Add Certification
+                                </Button>
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Accordion for Experience */}
+                    <AccordionItem value="item-4">
+                        <AccordionTrigger>Experience</AccordionTrigger>
+                        <AccordionContent>
+                            {experienceArrayFields.fields.map((_, idx) => (
+                                <div
+                                    className="grid grid-cols-2 rounded-b-lg px-8 bg-white border-gray-200 gap-x-4"
+                                    key={idx}
+                                >
+                                    <Input
+                                        labelName="Company Name"
+                                        {...register(
+                                            `experiences.${idx}.companyName`
+                                        )}
+                                    />
+                                    <Input
+                                        labelName="Job Title"
+                                        {...register(
+                                            `experiences.${idx}.title`
+                                        )}
+                                    />
+                                    <Input
+                                        labelName="From"
+                                        placeholder="Year (e.g., 2020)"
+                                        {...register(
+                                            `experiences.${idx}.start.year`
+                                        )}
+                                    />
+                                    <Input
+                                        labelName="To"
+                                        placeholder="Year (e.g., 2024)"
+                                        {...register(
+                                            `experiences.${idx}.end.year`
+                                        )}
+                                    />
+                                    <Input
+                                        labelName="Location"
+                                        className="col-span-2"
+                                        {...register(
+                                            `experiences.${idx}.location`
+                                        )}
+                                    />
+                                    <label
+                                        htmlFor="description"
+                                        className="block my-2 text-sm text-slate-600 col-span-2"
+                                    >
+                                        Description
+                                    </label>
+                                    <textarea
+                                        id="description"
+                                        rows="4"
+                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 col-span-2"
+                                        placeholder="Describe about the things you did while working in the company"
+                                        {...register(
+                                            `experiences.${idx}.description`
+                                        )}
+                                    ></textarea>
+                                    <Button
+                                        type="button"
+                                        className="mt-6 col-span-2"
+                                        onClick={() => {
+                                            if (
+                                                experienceArrayFields.fields
+                                                    .length === 1
+                                            ) {
+                                                return handleError(
+                                                    "There must be atleast at least one Experience Field"
+                                                );
+                                            } else {
+                                                experienceArrayFields.remove(
+                                                    idx
+                                                );
+                                            }
+                                        }}
+                                        variant="destructive"
+                                    >
+                                        <FaTrash />
+                                    </Button>
+                                    <Separator className="col-span-2 mt-4" />
+                                </div>
+                            ))}
+
+                            <div className="px-8">
+                                <Button
+                                    type="button"
+                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue flex justify-center items-center"
+                                    onClick={() =>
+                                        experienceArrayFields.append(
+                                            experienceFormDefaultValues
+                                        )
+                                    }
+                                >
+                                    <FiPlus /> Add Experience
+                                </Button>
                             </div>
                         </AccordionContent>
                     </AccordionItem>
@@ -289,7 +397,9 @@ function EditFields({
 
                 <div className="mt-4 flex justify-between">
                     <Button type="submit">Submit</Button>
-                    <Button onClick={handleDownload}>Download PDF</Button>
+                    <Button type="button" onClick={handleDownload}>
+                        Download PDF
+                    </Button>
                 </div>
             </form>
         </div>

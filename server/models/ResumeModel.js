@@ -29,6 +29,16 @@ const resumeSchema = new Schema({
     ],
     name: String,
     updated_at: Date,
+    experiences: [
+        {
+            companyName: String,
+            title: String,
+            location: String,
+            description: String,
+            start: { year: String },
+            end: { year: String },
+        },
+    ],
 });
 
 module.exports = mongoose.model("Resume", resumeSchema);

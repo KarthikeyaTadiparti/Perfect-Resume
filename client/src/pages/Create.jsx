@@ -26,6 +26,14 @@ const certificationFormDefaultValues = {
     name: "",
     authority: "",
 };
+const experienceFormDefaultValues = {
+    companyName: "",
+    title: "",
+    location: "",
+    description: "",
+    start: { year: "" },
+    end: { year: "" },
+};
 const formDefaultValues = {
     firstName: "",
     lastName: "",
@@ -38,6 +46,7 @@ const formDefaultValues = {
     headline: "",
     educations: [educationFormDefaultValues],
     certifications: [certificationFormDefaultValues],
+    experiences: [experienceFormDefaultValues],
 };
 
 function Create() {
@@ -55,8 +64,12 @@ function Create() {
         control,
         name: "certifications",
     });
+    const experienceArrayFields = useFieldArray({
+        control,
+        name: "experiences",
+    });
 
-    // console.log("GET", getValues());
+    console.log("GET", getValues());
 
     useEffect(() => {
         console.log("In create page : ", ResumeInfo);
@@ -110,6 +123,7 @@ function Create() {
                         handleSubmit={handleSubmit}
                         educationArrayFields={educationArrayFields}
                         certificationArrayFields={certificationArrayFields}
+                        experienceArrayFields={experienceArrayFields}
                         register={register}
                     />
                 </div>
