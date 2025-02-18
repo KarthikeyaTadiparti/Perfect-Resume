@@ -29,16 +29,11 @@ function Signup() {
                 `${import.meta.env.VITE_API_URL}/auth/signup`,
                 formData,
                 {
-                    // headers: {
-                    //     Authorization: `Bearer ${token}`,
-                    //     "Content-Type": "application/json",
-                    // },
                     withCredentials: true,
                 }
             );
             // console.log(response.data);
             let result = response.data;
-            // dispatch(setCredentials({ UserInfo: result.user, token: result.token }));
             dispatch(setCredentials(result.user));
 
             if (result.success) {

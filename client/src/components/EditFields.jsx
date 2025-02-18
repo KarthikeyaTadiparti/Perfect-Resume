@@ -66,7 +66,6 @@ function EditFields({
                     data,
                     {
                         headers: {
-                            // Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json",
                         },
                         withCredentials: true,
@@ -89,7 +88,6 @@ function EditFields({
                     data,
                     {
                         headers: {
-                            // Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json",
                         },
                         withCredentials: true,

@@ -14,17 +14,15 @@ const signup = async (req, res) => {
         newUser.password = await bcrypt.hash(password, 10);
         await newUser.save();
 
-        // let token = genToken(res, newUser._id);
         genToken(res, newUser._id);
         res.status(201).json({
             message: "User registered successfully!",
             success: true,
-            // token,
-            user : {
-                id : newUser._id,
-                name : newUser.name,
-                email : newUser.email,
-            }
+            user: {
+                id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+            },
         });
     } catch (error) {
         res.status(500).json({
@@ -51,17 +49,15 @@ const login = async (req, res) => {
                 .json({ message: "Invalid email or password", success: false });
         }
 
-        // let token = genToken(res, user._id);
         genToken(res, user._id);
         res.status(201).json({
             message: "User logged in successfully!",
             success: true,
-            // token,
-            user : {
-                id : user._id,
-                name : user.name,
-                email : user.email,
-            }
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            },
         });
     } catch (error) {
         res.status(500).json({

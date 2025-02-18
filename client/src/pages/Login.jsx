@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {useDispatch,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { handleError, handleSuccess } from "../lib/utils";
 import axios from "axios";
@@ -32,7 +32,6 @@ function Login() {
                 formData,
                 {
                     headers: {
-                        // Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                     withCredentials: true,
@@ -41,7 +40,6 @@ function Login() {
             console.log(response);
             // console.log(response.data);
             let result = response.data;
-            // dispatch(setCredentials({ UserInfo: result.user, token: result.token }));
             dispatch(setCredentials(result.user));
 
             if (result.success) {

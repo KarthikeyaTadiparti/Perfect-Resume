@@ -43,16 +43,12 @@ function Resume() {
                 let response = await axios.get(
                     `${import.meta.env.VITE_API_URL}/resume`,
                     {
-                        // headers: {
-                        //     Authorization: `Bearer ${token}`,
-                        // },
                         withCredentials: true,
                     }
                 );
                 console.log(response);
                 let result = response.data;
                 console.log("User : ", result.user);
-                // dispatch(setCredentials({UserInfo : result.user,token : token}));
                 dispatch(setCredentials(result.user));
                 dispatch(removeResumeInfo());
                 console.log("Removed ResumeInfo : ", ResumeInfo);
@@ -169,16 +165,12 @@ function Resume() {
             const response = await axios.delete(
                 `${import.meta.env.VITE_API_URL}/resume/${id}`,
                 {
-                    // headers: {
-                    //     Authorization: `Bearer ${token}`,
-                    // },
                     withCredentials: true,
                 }
             );
             const result = response.data;
             // console.log(result);
             handleSuccess(result.message);
-            // dispatch(setCredentials({UserInfo : result.user,token : token}));
             dispatch(setCredentials(result.user));
             console.log(result.user);
         } catch (error) {

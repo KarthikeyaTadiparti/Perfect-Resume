@@ -30,9 +30,6 @@ const loginValidation = (req, res, next) => {
 
 const ensureAuthentication = (req, res, next) => {
     let jwtToken = req.cookies.jwt;
-    // const authHeader = req.headers["authorization"];
-    // const jwtToken = authHeader && authHeader.split(" ")[1];
-
     // console.log(jwtToken);
     if (!jwtToken)
         return res
@@ -45,7 +42,9 @@ const ensureAuthentication = (req, res, next) => {
         // console.log(req.user);
         next();
     } catch (error) {
-        return res.status(401).json({ message: "Invalid token", success: false });
+        return res
+            .status(401)
+            .json({ message: "Invalid token", success: false });
     }
 };
 
