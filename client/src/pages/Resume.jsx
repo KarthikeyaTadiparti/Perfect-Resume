@@ -52,7 +52,8 @@ function Resume() {
                 console.log(response);
                 let result = response.data;
                 console.log("User : ", result.user);
-                dispatch(setCredentials({UserInfo : result.user,token : token}));
+                // dispatch(setCredentials({UserInfo : result.user,token : token}));
+                dispatch(setCredentials(result.user));
                 dispatch(removeResumeInfo());
                 console.log("Removed ResumeInfo : ", ResumeInfo);
             } catch (error) {
@@ -177,7 +178,8 @@ function Resume() {
             const result = response.data;
             // console.log(result);
             handleSuccess(result.message);
-            dispatch(setCredentials({UserInfo : result.user,token : token}));
+            // dispatch(setCredentials({UserInfo : result.user,token : token}));
+            dispatch(setCredentials(result.user));
             console.log(result.user);
         } catch (error) {
             let msg = error?.response?.data?.message;

@@ -38,9 +38,8 @@ function Signup() {
             );
             // console.log(response.data);
             let result = response.data;
-            dispatch(
-                setCredentials({ UserInfo: result.user, token: result.token })
-            );
+            // dispatch(setCredentials({ UserInfo: result.user, token: result.token }));
+            dispatch(setCredentials(result.user));
 
             if (result.success) {
                 handleSuccess(result.message);

@@ -14,11 +14,12 @@ const signup = async (req, res) => {
         newUser.password = await bcrypt.hash(password, 10);
         await newUser.save();
 
-        let token = genToken(res, newUser._id);
+        // let token = genToken(res, newUser._id);
+        genToken(res, newUser._id);
         res.status(201).json({
             message: "User registered successfully!",
             success: true,
-            token,
+            // token,
             user : {
                 id : newUser._id,
                 name : newUser.name,
@@ -50,11 +51,12 @@ const login = async (req, res) => {
                 .json({ message: "Invalid email or password", success: false });
         }
 
-        let token = genToken(res, user._id);
+        // let token = genToken(res, user._id);
+        genToken(res, user._id);
         res.status(201).json({
             message: "User logged in successfully!",
             success: true,
-            token,
+            // token,
             user : {
                 id : user._id,
                 name : user.name,
@@ -73,7 +75,7 @@ const logout = async (req, res) => {
     res.clearCookie("jwt", {
         httpOnly: true,
         secure: process.env.NODE_ENV !== "development",
-        sameSite: "strict",
+        sameSite: "None",
     });
     res.status(200).json({ message: "User logged out" });
 };

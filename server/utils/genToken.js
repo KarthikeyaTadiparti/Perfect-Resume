@@ -5,13 +5,13 @@ function genToken(res, id) {
         expiresIn: "30d",
     });
 
-    // res.cookie("jwt", token, {
-    //     httpOnly: true,
-    //     secure: process.env.NODE_EN !== "development",
-    //     sameSite: "strict",
-    //     maxAge: 30 * 24 * 60 * 60 * 1000,
-    // });
-    return token;
+    res.cookie("jwt", token, {
+        httpOnly: true,
+        secure: process.env.NODE_EN !== "development",
+        sameSite: "None",
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
+    // return token;
 };
 
 module.exports = genToken;
