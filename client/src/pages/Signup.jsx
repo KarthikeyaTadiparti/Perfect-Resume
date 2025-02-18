@@ -29,10 +29,10 @@ function Signup() {
                 `${import.meta.env.VITE_API_URL}/auth/signup`,
                 formData,
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
+                    // headers: {
+                    //     Authorization: `Bearer ${token}`,
+                    //     "Content-Type": "application/json",
+                    // },
                     withCredentials: true,
                 }
             );

@@ -43,9 +43,9 @@ function Resume() {
                 let response = await axios.get(
                     `${import.meta.env.VITE_API_URL}/resume`,
                     {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
+                        // headers: {
+                        //     Authorization: `Bearer ${token}`,
+                        // },
                         withCredentials: true,
                     }
                 );
@@ -169,9 +169,9 @@ function Resume() {
             const response = await axios.delete(
                 `${import.meta.env.VITE_API_URL}/resume/${id}`,
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    // headers: {
+                    //     Authorization: `Bearer ${token}`,
+                    // },
                     withCredentials: true,
                 }
             );

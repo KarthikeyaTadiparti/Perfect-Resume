@@ -15,9 +15,9 @@ function Edit() {
             const response = await axios.get(
                 `${import.meta.env.VITE_API_URL}/resume/${id}`,
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    // headers: {
+                    //     Authorization: `Bearer ${token}`,
+                    // },
                     withCredentials: true,
                 }
             );

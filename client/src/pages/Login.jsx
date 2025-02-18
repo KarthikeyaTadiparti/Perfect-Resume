@@ -17,7 +17,7 @@ function Login() {
     const dispatch = useDispatch();
 
     const UserInfo = useSelector((state) => state.auth.UserInfo);
-    const token = useSelector((state) => state.auth.token);
+    // const token = useSelector((state) => state.auth.token);
 
     const handleChanges = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -32,12 +32,13 @@ function Login() {
                 formData,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        // Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                     withCredentials: true,
                 }
             );
+            console.log(response);
             // console.log(response.data);
             let result = response.data;
             // dispatch(setCredentials({ UserInfo: result.user, token: result.token }));

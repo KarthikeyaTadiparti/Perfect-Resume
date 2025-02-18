@@ -50,7 +50,7 @@ function EditFields({
     projectArrayFields,
     register,
 }) {
-    const token = useSelector((state) => state.auth.token);
+    // const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
     const { id } = useParams();
     console.log("resume id : ", id);
@@ -66,7 +66,7 @@ function EditFields({
                     data,
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            // Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json",
                         },
                         withCredentials: true,
@@ -89,7 +89,7 @@ function EditFields({
                     data,
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            // Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json",
                         },
                         withCredentials: true,

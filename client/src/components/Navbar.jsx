@@ -7,7 +7,7 @@ import { handleSuccess } from "../lib/utils";
 
 function Navbar() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
-    const token = useSelector((state) => state.auth.token);
+    // const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ function Navbar() {
                 {},
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        // Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                     withCredentials: true,
