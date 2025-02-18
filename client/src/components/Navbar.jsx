@@ -7,10 +7,8 @@ import { handleSuccess } from "../lib/utils";
 
 function Navbar() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
-    // const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const handleLogout = async () => {
         try {
             const response = await axios.post(

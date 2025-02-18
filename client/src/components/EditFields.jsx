@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
     Accordion,
@@ -50,66 +50,47 @@ function EditFields({
     projectArrayFields,
     register,
 }) {
-    // const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
+    const [isSubmitting,setIsSubmitting] = useState(false);
     const { id } = useParams();
     console.log("resume id : ", id);
 
     const onSubmit = async (data) => {
-        // console.log(data);
-
-        //creates new resume
-        if (!id) {
-            try {
-                let response = await axios.post(
-                    `${import.meta.env.VITE_API_URL}/resume/new`,
-                    data,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        withCredentials: true,
-                    }
-                );
-                console.log(response);
-                handleSuccess(response.data.message);
-                navigate("/resume");
-            } catch (error) {
-                console.log(error);
-                let msg = error?.response?.data?.message;
-                handleError(msg);
-            }
-        }
-        //updates the existing resume
-        else {
-            try {
-                let response = await axios.put(
-                    `${import.meta.env.VITE_API_URL}/resume/${id}`,
-                    data,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        withCredentials: true,
-                    }
-                );
-                console.log(response);
-                handleSuccess(response.data.message);
-                navigate("/resume");
-            } catch (error) {
-                console.log(error);
-                let msg = error?.response?.data?.message;
-                handleError(msg);
-            }
+        const url = id
+            ? `${import.meta.env.VITE_API_URL}/resume/${id}`
+            : `${import.meta.env.VITE_API_URL}/resume/new`;
+        const method = id ? "put" : "post";
+    
+        try {
+            setIsSubmitting(true);
+            let response = await axios[method](url, data, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+            });
+            console.log(response);
+            handleSuccess(response.data.message);
+            navigate("/resume");
+        } catch (error) {
+            console.log(error);
+            handleError(error?.response?.data?.message);
+        } finally {
+            setIsSubmitting(false);
         }
     };
+    
 
     const handleDownload = async () => {
         window.print();
     };
 
     return (
+        
         <div className="print:hidden">
+            {isSubmitting && (
+                <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center bg-white bg-opacity-60">
+                    <div className="spinner"></div>
+                </div>
+            )}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Accordion type="single" collapsible>
                     {/* Accordion for Personal Information */}
@@ -487,7 +468,7 @@ function EditFields({
                 </Accordion>
 
                 <div className="mt-4 flex justify-between">
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" disable={isSubmitting}>Submit</Button>
                     <Button type="button" onClick={handleDownload}>
                         Download PDF
                     </Button>

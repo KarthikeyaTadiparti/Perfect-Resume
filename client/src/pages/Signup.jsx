@@ -15,9 +15,8 @@ function Signup() {
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const UserInfo = useSelector((state) => state.auth.UserInfo);
-    const token = useSelector((state) => state.auth.token);
     const handleChanges = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
@@ -25,6 +24,7 @@ function Signup() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            setIsSubmitting(true);
             let response = await axios.post(
                 `${import.meta.env.VITE_API_URL}/auth/signup`,
                 formData,
@@ -44,10 +44,17 @@ function Signup() {
             console.log(error);
             let msg = error?.response?.data?.message;
             handleError(msg);
+        } finally {
+            setIsSubmitting(false);
         }
     };
     return (
         <div className="w-screen h-full flex justify-center items-center bg-back">
+            {isSubmitting && (
+                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-white bg-opacity-60">
+                    <div className="spinner"></div>
+                </div>
+            )}
             <form
                 onSubmit={handleSubmit}
                 className="w-1/4 shadow-md border border-gray-200 mx-auto px-6 py-4 rounded-lg bg-white"
@@ -74,7 +81,7 @@ function Signup() {
                     handleChanges={handleChanges}
                 />
 
-                <FormButton name="Sign Up" />
+                <FormButton name="Sign Up" isSubmitting={isSubmitting} />
                 <hr />
                 <p className="mt-5 text-center">
                     Have an account?

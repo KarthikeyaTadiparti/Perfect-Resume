@@ -13,33 +13,31 @@ import {
     DialogTitle,
     DialogTrigger,
     DialogFooter,
-    DialogClose,
 } from "@/components/ui/dialog";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
-import FadeLoader from "react-spinners/FadeLoader";
 import { removeResumeInfo, setResumeInfo } from "@/slices/resumeSlice";
 
 function Resume() {
     const [url, setUrl] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isFetchingResume, setIsFetchingResume] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const UserInfo = useSelector((state) => state.auth.UserInfo);
     const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
-    const token = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setIsFetchingResume(true);
                 let response = await axios.get(
                     `${import.meta.env.VITE_API_URL}/resume`,
                     {
@@ -56,10 +54,12 @@ function Resume() {
                 const errorMessage = error.response?.data?.message;
                 console.error("Error fetching data:", errorMessage);
                 handleError(errorMessage);
+            } finally {
+                setIsFetchingResume(false);
             }
         };
         fetchData();
-    }, []);
+    }, [dispatch]);
 
     //Api
     const options = {
@@ -143,7 +143,7 @@ function Resume() {
         event.preventDefault();
         console.log("url : " + url);
 
-        setLoading(true);
+        setIsSubmitting(true);
         try {
             let mappedData = await callApi();
             dispatch(setResumeInfo(mappedData));
@@ -151,7 +151,7 @@ function Resume() {
         } catch (error) {
             console.log(error);
         } finally {
-            setLoading(false);
+            setIsSubmitting(false);
         }
     };
 
@@ -160,6 +160,7 @@ function Resume() {
     };
 
     const deleteResume = async (id) => {
+        setIsDeleting(true);
         console.log("deleting : ", id);
         try {
             const response = await axios.delete(
@@ -177,10 +178,18 @@ function Resume() {
             let msg = error?.response?.data?.message;
             handleError(msg);
             console.log("Unable to delete resume : ", error);
+        } finally {
+            setIsDeleting(false);
         }
     };
     return (
         <div className="w-4/5 h-full mx-auto">
+            {(isFetchingResume || isDeleting) && (
+                <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-white bg-opacity-60">
+                    <div className="spinner"></div>
+                </div>
+            )}
+
             <h1 className="text-3xl font-bold">
                 Welcome back, {UserInfo?.name}!
             </h1>
@@ -227,17 +236,11 @@ function Resume() {
                             <Button
                                 type="submit"
                                 variant="outline"
-                                disabled={loading}
+                                disabled={isSubmitting}
                             >
-                                {loading ? (
+                                {isSubmitting ? (
                                     <span className="flex items-center justify-center">
-                                        Loading...
-                                        <div className="scale-[0.4] -ml-2">
-                                            <FadeLoader
-                                                color="#000000"
-                                                loading={loading}
-                                            />
-                                        </div>
+                                        <div className="loader"></div>
                                     </span>
                                 ) : (
                                     "Submit"
