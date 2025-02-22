@@ -7,7 +7,7 @@ function Preview({ formData, className, scaleFactor = 1 }) {
     return (
         <div
             className={cn(
-                "w-[800px] h-[842px] overflow-auto bg-white border-2 shadow-lg print:w-full print:h-full",
+                "w-[800px] h-[842px] overflow-auto bg-white print:w-full print:h-full print:overflow-visible",
                 className
             )}
             style={{
