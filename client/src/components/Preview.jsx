@@ -3,11 +3,11 @@ import Template1 from "./Template1";
 import Template2 from "./Template2";
 import { cn } from "@/lib/utils";
 
-function Preview({ formData, template, className, scaleFactor = 1 }) {
+function Preview({ formData, className, scaleFactor = 1 }) {
     return (
         <div
             className={cn(
-                "w-[800px] min-h-[842px] bg-white border-none shadow-none print:w-full print:h-full",
+                "w-[800px] h-[842px] overflow-auto bg-white border-2 shadow-lg print:w-full print:h-full",
                 className
             )}
             style={{

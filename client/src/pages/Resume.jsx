@@ -262,8 +262,8 @@ function Resume() {
                                 <div className="w-full h-[70%] overflow-hidden">
                                     <Preview
                                         formData={resume}
-                                        selectedTemplate="template1"
                                         scaleFactor={0.28}
+                                        className={"overflow-clip"}
                                     />
                                 </div>
 

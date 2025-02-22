@@ -106,7 +106,7 @@ function Create() {
     };
 
     return (
-        <div className="w-screen h-full">
+        <div className="w-screen h-full overflow-hidden">
             <Sheet>
                 <SheetTrigger className="absolute border size-10 bg-white rounded-md print:hidden">
                     <i className="fa-solid fa-arrow-right"></i>
@@ -153,7 +153,7 @@ function Create() {
                     />
                 </div>
                 <div className="w-2/3 h-full">
-                    <Preview formData={formData} template={template} />
+                    <Preview formData={formData} />
                 </div>
             </div>
         </div>
