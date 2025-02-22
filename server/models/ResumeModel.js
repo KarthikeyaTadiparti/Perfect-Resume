@@ -47,6 +47,13 @@ const resumeSchema = new Schema({
             links: String,
         },
     ],
+    skills : {
+        languages: String,
+        libraries: String,
+        tools: String,
+        databases: String,
+        others: String,
+    },
     achievements: [
         {
             name: String,

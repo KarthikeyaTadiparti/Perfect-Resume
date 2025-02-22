@@ -81,6 +81,7 @@ function Resume() {
             // console.log("api : ", apiData);
             return new Promise((resolve) => {
                 setTimeout(() => {
+                    const others = ""; 
                     console.log("data :", data);
                     const apiData = data;
                     const mappedData = {
@@ -89,47 +90,60 @@ function Resume() {
                         email: apiData.email || "",
                         mobile: apiData.mobile || "",
                         geo: {
-                            city: apiData.geo.city || "",
-                            country: apiData.geo.country || "",
+                            city: apiData.geo?.city || "",
+                            country: apiData.geo?.country || "",
                         },
                         headline: apiData.headline || "",
 
-                        educations: apiData.educations.map((education) => ({
-                            schoolName: education.schoolName || "",
-                            start: { year: education.start.year || "" },
-                            end: { year: education.end.year || "" },
-                            fieldOfStudy: education.fieldOfStudy || "",
-                            degree: education.degree || "",
-                            grade: education.grade || "",
-                        })),
+                        educations:
+                            apiData.educations?.map((education) => ({
+                                schoolName: education.schoolName || "",
+                                start: { year: education.start?.year || "" },
+                                end: { year: education.end?.year || "" },
+                                fieldOfStudy: education.fieldOfStudy || "",
+                                degree: education.degree || "",
+                                grade: education.grade || "",
+                            })) || [],
 
-                        experiences: apiData.position.map((experience) => ({
-                            companyName: experience.companyName || "",
-                            start: { year: experience.start.year || "" },
-                            end: { year: experience.end.year || "" },
-                            title: experience.title || "",
-                            description: experience.description || "",
-                            location:
-                                experience.location
-                                    .split(",")
-                                    .slice(0, 2)
-                                    .join(", ") || "",
-                        })),
+                        experiences:
+                            apiData.position?.map((experience) => ({
+                                companyName: experience.companyName || "",
+                                start: { year: experience.start?.year || "" },
+                                end: { year: experience.end?.year || "" },
+                                title: experience.title || "",
+                                description: experience.description || "",
+                                location: experience.location
+                                    ? experience.location
+                                          .split(",")
+                                          .slice(0, 2)
+                                          .join(", ")
+                                    : "",
+                            })) || [],
 
-                        projects: apiData.projects.items.map((project) => ({
-                            title: project.title || "",
-                            description: project.description || "",
-                            technologies: project.technologies || "",
-                            links: project.links || "",
-                        })),
+                        projects:
+                            apiData.projects?.items?.map((project) => ({
+                                title: project.title || "",
+                                description: project.description || "",
+                                technologies: project.technologies || "",
+                                links: project.links || "",
+                            })) || [],
 
-                        certifications: apiData.certifications.map(
-                            (certificate) => ({
+                        certifications:
+                            apiData.certifications?.map((certificate) => ({
                                 name: certificate.name || "",
                                 authority: certificate.authority || "",
-                            })
-                        ),
+                            })) || [],
+
+                        skills: {
+                            others:
+                                (others || "") +
+                                (others && apiData.skills?.length ? ", " : "") +
+                                (apiData.skills
+                                    ?.map((skill) => skill.name)
+                                    .join(", ") || ""),
+                        },
                     };
+
                     // return mappedData;
                     resolve(mappedData);
                 }, 5000);

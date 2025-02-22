@@ -179,6 +179,50 @@ function Template1({ formData }) {
                     </div>
                 )}
 
+            {formData.skills &&
+                (formData.skills.languages ||
+                    formData.skills.databases ||
+                    formData.skills.tools ||
+                    formData.skills.libraries ||
+                    formData.skills.others) && (
+                    <div className="mt-2">
+                        <div className="text-xl font-extrabold">Skillsets</div>
+                        <hr className="border-gray-600" />
+                        <div className="ml-8 text-md">
+                            {formData.skills.languages && (
+                                <div>
+                                    <b>Programming Languages : </b>{" "}
+                                    {formData.skills.languages}
+                                </div>
+                            )}
+                            {formData.skills.libraries && (
+                                <div>
+                                    <b>Libraries/Frameworks : </b>{" "}
+                                    {formData.skills.libraries}
+                                </div>
+                            )}
+                            {formData.skills.tools && (
+                                <div>
+                                    <b>Tools & Technologies : </b>{" "}
+                                    {formData.skills.tools}
+                                </div>
+                            )}
+                            {formData.skills.databases && (
+                                <div>
+                                    <b>Databases : </b>{" "}
+                                    {formData.skills.databases}
+                                </div>
+                            )}
+                            {formData.skills.others && (
+                                <div>
+                                    <b>Others : </b>
+                                    {" " + formData.skills.others}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
             {formData.certifications &&
                 (formData.certifications[0]?.name ||
                     formData.certifications[0]?.authority) && (
@@ -189,10 +233,7 @@ function Template1({ formData }) {
                         <hr className="border-gray-600" />
                         <ul className="list-disc ml-8 mt-2">
                             {formData.certifications.map((certificate, idx) => (
-                                <li
-                                    key={idx}
-                                    className="text-md leading-tight"
-                                >
+                                <li key={idx} className="text-md leading-tight">
                                     {certificate.name && (
                                         <span>{certificate.name}</span>
                                     )}
@@ -216,10 +257,7 @@ function Template1({ formData }) {
                     <hr className="border-gray-600" />
                     <ul className="list-disc ml-8 mt-2">
                         {formData.achievements.map((ach, idx) => (
-                            <li
-                                key={idx}
-                                className="text-md leading-tight"
-                            >
+                            <li key={idx} className="text-md leading-tight">
                                 {ach.name && <span>{ach.name}</span>}
                             </li>
                         ))}

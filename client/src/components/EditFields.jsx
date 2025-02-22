@@ -42,7 +42,7 @@ const projectFormDefaultValues = {
     links: "",
 };
 const achievementFormDefaultValues = {
-    name : "",
+    name: "",
 };
 
 function EditFields({
@@ -53,22 +53,21 @@ function EditFields({
     projectArrayFields,
     achievementArrayFields,
     register,
-    template
+    template,
 }) {
     const navigate = useNavigate();
-    const [isSubmitting,setIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const { id } = useParams();
     console.log("resume id : ", id);
 
     const onSubmit = async (data) => {
-
-        data = {...data,template : template};
-        console.log("template : ",template);
+        data = { ...data, template: template };
+        console.log("template : ", template);
         const url = id
             ? `${import.meta.env.VITE_API_URL}/resume/${id}`
             : `${import.meta.env.VITE_API_URL}/resume/new`;
         const method = id ? "put" : "post";
-    
+
         try {
             setIsSubmitting(true);
             let response = await axios[method](url, data, {
@@ -85,14 +84,12 @@ function EditFields({
             setIsSubmitting(false);
         }
     };
-    
 
     const handleDownload = async () => {
         window.print();
     };
 
     return (
-        
         <div className="print:hidden">
             {isSubmitting && (
                 <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center bg-white bg-opacity-60">
@@ -413,8 +410,43 @@ function EditFields({
                         </AccordionContent>
                     </AccordionItem>
 
-                    {/* Accordion for Certifications */}
+                    {/* Accordion for Skills */}
                     <AccordionItem value="item-5">
+                        <AccordionTrigger>Skillsets</AccordionTrigger>
+                        <AccordionContent>
+                            <div className="flex flex-col items-end rounded-b-lg px-8 bg-white border-gray-200 gap-x-4">
+                                <Input
+                                    labelName="Programming Languages"
+                                    placeholder="C, Python, Java "
+                                    {...register(`skills.languages`)}
+                                />
+                                <Input
+                                    labelName="Libraries / Frameworks"
+                                    placeholder="JavaScript, ReactJs"
+                                    {...register(`skills.libraries`)}
+                                />
+                                <Input
+                                    labelName="Tools & Technologies"
+                                    placeholder="Git, Vscode"
+                                    {...register(`skills.tools`)}
+                                />
+                                <Input
+                                    labelName="Databases"
+                                    placeholder="MySQL, MongoDB"
+                                    {...register(`skills.databases`)}
+                                />
+                                <Input
+                                    labelName="Others"
+                                    placeholder="Enter any other skills"
+                                    {...register(`skills.others`)}
+                                />
+                                <br />
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Accordion for Certifications */}
+                    <AccordionItem value="item-6">
                         <AccordionTrigger>Certifications</AccordionTrigger>
                         <AccordionContent>
                             {certificationArrayFields.fields.map((_, idx) => (
@@ -475,7 +507,7 @@ function EditFields({
                     </AccordionItem>
 
                     {/* Accordion for Achievement */}
-                    <AccordionItem value="item-6">
+                    <AccordionItem value="item-7">
                         <AccordionTrigger>Achievements</AccordionTrigger>
                         <AccordionContent>
                             {achievementArrayFields.fields.map((_, idx) => (
@@ -489,7 +521,7 @@ function EditFields({
                                             `achievements.${idx}.name`
                                         )}
                                     />
-                                    
+
                                     <Button
                                         type="button"
                                         onClick={() => {
@@ -532,7 +564,9 @@ function EditFields({
                 </Accordion>
 
                 <div className="mt-4 flex justify-between">
-                    <Button type="submit" disable={isSubmitting}>Submit</Button>
+                    <Button type="submit" disable={isSubmitting}>
+                        Submit
+                    </Button>
                     <Button type="button" onClick={handleDownload}>
                         Download PDF
                     </Button>

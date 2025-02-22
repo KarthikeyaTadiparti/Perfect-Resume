@@ -40,7 +40,7 @@ const projectFormDefaultValues = {
     links: "",
 };
 const achievementFormDefaultValues = {
-    name : "",
+    name: "",
 };
 const formDefaultValues = {
     firstName: "",
@@ -56,7 +56,14 @@ const formDefaultValues = {
     certifications: [certificationFormDefaultValues],
     experiences: [experienceFormDefaultValues],
     projects: [projectFormDefaultValues],
-    achievements : [achievementFormDefaultValues],
+    achievements: [achievementFormDefaultValues],
+    skills: {
+        languages: "",
+        libraries: "",
+        tools: "",
+        databases: "",
+        others: "",
+    },
     template: "1",
 };
 
