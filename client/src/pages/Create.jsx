@@ -36,8 +36,8 @@ const experienceFormDefaultValues = {
 const projectFormDefaultValues = {
     title: "",
     description: "",
-    technologies : "",
-    links : "",
+    technologies: "",
+    links: "",
 };
 const formDefaultValues = {
     firstName: "",
@@ -52,13 +52,14 @@ const formDefaultValues = {
     educations: [educationFormDefaultValues],
     certifications: [certificationFormDefaultValues],
     experiences: [experienceFormDefaultValues],
-    projects : [projectFormDefaultValues],
+    projects: [projectFormDefaultValues],
+    template: "1",
 };
 
 function Create() {
     const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
-    
-    const { register, handleSubmit, getValues, control, reset, watch } =
+
+    const { register, handleSubmit, getValues, control, reset, watch, setValue } =
         useForm({
             defaultValues: formDefaultValues,
         });
@@ -89,8 +90,20 @@ function Create() {
         }
     }, [ResumeInfo, reset]);
 
-    const [selectedTemplate, setSelectedTemplate] = useState("template1");
     const formData = watch();
+    const [template, setTemplate] = useState(ResumeInfo?.template || "1");
+    
+    useEffect(() => {
+        if (formData.template !== template) {
+            setTemplate(formData.template);
+        }
+    }, [formData.template]);
+    
+
+    const handleTemplateChange = (newTemplate) => {
+        setTemplate(newTemplate);
+        setValue("template", newTemplate);  
+    };
 
     return (
         <div className="w-screen h-full">
@@ -104,21 +117,21 @@ function Create() {
                         <SheetDescription className="flex justify-center gap-10">
                             <button
                                 className={`px-4 py-2 border rounded ${
-                                    selectedTemplate === "template1"
+                                    template === "1"
                                         ? "bg-blue-500 text-white"
                                         : "bg-gray-200"
                                 }`}
-                                onClick={() => setSelectedTemplate("template1")}
+                                onClick={() => handleTemplateChange("1")}
                             >
                                 Template 1
                             </button>
                             <button
                                 className={`px-4 py-2 border rounded ${
-                                    selectedTemplate === "template2"
+                                    template === "2"
                                         ? "bg-blue-500 text-white"
                                         : "bg-gray-200"
                                 }`}
-                                onClick={() => setSelectedTemplate("template2")}
+                                onClick={() => handleTemplateChange("2")}
                             >
                                 Template 2
                             </button>
@@ -136,13 +149,11 @@ function Create() {
                         experienceArrayFields={experienceArrayFields}
                         projectArrayFields={projectArrayFields}
                         register={register}
+                        template={template}
                     />
                 </div>
                 <div className="w-2/3 h-full">
-                    <Preview
-                        formData={formData}
-                        selectedTemplate={selectedTemplate}
-                    />
+                    <Preview formData={formData} template={template} />
                 </div>
             </div>
         </div>

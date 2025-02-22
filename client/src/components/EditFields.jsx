@@ -49,6 +49,7 @@ function EditFields({
     experienceArrayFields,
     projectArrayFields,
     register,
+    template
 }) {
     const navigate = useNavigate();
     const [isSubmitting,setIsSubmitting] = useState(false);
@@ -56,6 +57,9 @@ function EditFields({
     console.log("resume id : ", id);
 
     const onSubmit = async (data) => {
+
+        data = {...data,template : template};
+        console.log("template : ",template);
         const url = id
             ? `${import.meta.env.VITE_API_URL}/resume/${id}`
             : `${import.meta.env.VITE_API_URL}/resume/new`;

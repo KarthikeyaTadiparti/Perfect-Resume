@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Home() {
     return (
         <div className=" w-4/5 h-full mx-auto flex ">
@@ -17,11 +17,13 @@ function Home() {
                     few steps. <br />
                     Don't just apply - impress!
                 </p>
-                <form action="/home/resume" method="GET">
-                    <button className="text-white bg-pri-blue hover:bg-dark-pri-blue font-medium rounded-lg text-sm px-6 py-3 text-center my-6">
-                        Create Resume
-                    </button>
-                </form>
+
+                <Link
+                    to="/resume"
+                    className="text-white bg-pri-blue hover:bg-dark-pri-blue font-medium rounded-lg text-sm px-6 py-3 text-center my-6"
+                >
+                    Create Resume
+                </Link>
             </div>
             <div>
                 <img

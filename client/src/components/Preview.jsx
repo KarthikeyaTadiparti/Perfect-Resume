@@ -1,8 +1,9 @@
 import React from "react";
 import Template1 from "./Template1";
+import Template2 from "./Template2";
 import { cn } from "@/lib/utils";
 
-function Preview({ formData, selectedTemplate, className, scaleFactor = 1 }) {
+function Preview({ formData, template, className, scaleFactor = 1 }) {
     return (
         <div
             className={cn(
@@ -15,24 +16,10 @@ function Preview({ formData, selectedTemplate, className, scaleFactor = 1 }) {
             }}
         >
             <div id="pdf-content" className="w-full h-full p-8">
-                {selectedTemplate === "template1" ? (
+                {formData.template === "1" ? (
                     <Template1 formData={formData} />
                 ) : (
-                    <div>
-                        <h2 className="text-lg font-semibold">Template 2</h2>
-                        <p>
-                            {formData.firstName} {formData.lastName}
-                        </p>
-                        <p>Email: {formData.email}</p>
-                        <p>Mobile: {formData.mobile}</p>
-                        <p>
-                            Location: {formData.city}, {formData.state}
-                        </p>
-                        <p>
-                            <strong>Objective:</strong>
-                        </p>
-                        <p>{formData.objective}</p>
-                    </div>
+                    <Template2 formData={formData} />
                 )}
             </div>
         </div>
