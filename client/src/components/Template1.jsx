@@ -2,10 +2,13 @@ import React from "react";
 
 function Template1({ formData }) {
     return (
-        <div className="font-cormorant">
-            <div className="text-custom-xlarge font-semibold text-center">
-                {formData.firstName} {formData.lastName}
-                <div className="mt-2 flex text-custom-small divide-solid divide-x-[1px] divide-gray-900 font-normal justify-center items-center">
+        <div className="font-cormorant tracking-tight">
+            <div className="text-center">
+                <div className="text-3xl font-semibold tracking-wide">
+                    {formData.firstName} {formData.lastName}
+                </div>
+
+                <div className="mt-2 flex text-sm divide-solid divide-x-[1px] divide-gray-900 font-normal justify-center items-center">
                     {formData.mobile && (
                         <div className="px-2">{formData.mobile}</div>
                     )}
@@ -24,11 +27,11 @@ function Template1({ formData }) {
 
             {formData.headline && (
                 <div className="mt-2">
-                    <div className="text-custom-large font-semibold">
+                    <div className="text-xl font-extrabold">
                         Career Objective
                     </div>
                     <hr className="border-gray-600" />
-                    <div className="text-custom-small mt-2 text-justify  leading-tight">
+                    <div className="text-md mt-2 text-justify  leading-tight">
                         {formData.headline}
                     </div>
                 </div>
@@ -42,16 +45,14 @@ function Template1({ formData }) {
                     formData.educations[0]?.start.year ||
                     formData.educations[0]?.end.year) && (
                     <div className="mt-2">
-                        <div className="text-custom-large font-semibold">
-                            Education
-                        </div>
+                        <div className="text-xl font-extrabold">Education</div>
 
                         <hr className="border-gray-600" />
 
                         {formData.educations.map((edu, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-custom-small leading-tight flex justify-between"
+                                className="mt-1 text-md leading-tight flex justify-between"
                             >
                                 {(edu.start.year || edu.end.year) && (
                                     <div>
@@ -63,7 +64,7 @@ function Template1({ formData }) {
                                     edu.schoolName) && (
                                     <div className="ml-2 grow">
                                         {edu.degree} ({edu.fieldOfStudy}) at{" "}
-                                        {edu.schoolName}
+                                        <b>{edu.schoolName}</b>
                                     </div>
                                 )}
 
@@ -82,19 +83,17 @@ function Template1({ formData }) {
                     formData.experiences[0]?.start.year ||
                     formData.experiences[0]?.end.year) && (
                     <div className="mt-2">
-                        <div className="text-custom-large font-semibold">
-                            Experience
-                        </div>
+                        <div className="text-xl font-extrabold">Experience</div>
 
                         <hr className="border-gray-600" />
 
                         {formData.experiences.map((ex, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-custom-small leading-tight"
+                                className="mt-1 text-md leading-tight"
                             >
                                 <div className="flex justify-between">
-                                    <div className="mt-2 flex text-custom-medium divide-solid divide-x-[1px] divide-gray-900 font-semibold justify-center items-center">
+                                    <div className="mt-2 flex font-bold divide-solid divide-x-[1px] divide-gray-900  justify-center items-center">
                                         {ex.companyName && (
                                             <div className="px-2">
                                                 {ex.companyName}
@@ -107,7 +106,7 @@ function Template1({ formData }) {
                                         )}
                                     </div>
 
-                                    <div className="mt-2 flex text-custom-medium divide-solid divide-x-[1px] divide-gray-900 font-normal justify-center items-center">
+                                    <div className="mt-2 flex divide-solid divide-x-[1px] divide-gray-900 font-normal justify-center items-center">
                                         {ex.location && (
                                             <div className="px-2">
                                                 {ex.location}
@@ -122,7 +121,7 @@ function Template1({ formData }) {
                                 </div>
 
                                 {ex.description && (
-                                    <div className="ml-2 px-2 text-custom-small mt-2 text-justify leading-tight">
+                                    <div className="ml-2 px-2 mt-2 text-justify leading-tight">
                                         {ex.description}
                                     </div>
                                 )}
@@ -137,19 +136,17 @@ function Template1({ formData }) {
                     formData.projects[0]?.technologies ||
                     formData.projects[0]?.links) && (
                     <div className="mt-2">
-                        <div className="text-custom-large font-semibold">
-                            Projects
-                        </div>
+                        <div className="text-xl font-extrabold">Projects</div>
 
                         <hr className="border-gray-600" />
 
                         {formData.projects.map((pro, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-custom-small leading-tight"
+                                className="mt-1 text-md leading-tight"
                             >
                                 <div className="flex justify-between">
-                                    <div className="mt-2 text-custom-medium font-semibold">
+                                    <div className="mt-2 font-bold">
                                         {pro.title && (
                                             <div className="px-2">
                                                 {pro.title}
@@ -157,7 +154,7 @@ function Template1({ formData }) {
                                         )}
                                     </div>
 
-                                    <div className="mt-2 text-custom-medium font-normal">
+                                    <div className="mt-2 font-bold">
                                         {pro.technologies && (
                                             <div className="px-2">
                                                 {pro.technologies}
@@ -167,13 +164,13 @@ function Template1({ formData }) {
                                 </div>
 
                                 {pro.links && (
-                                    <div className="px-2 text-custom-small mt-1">
+                                    <div className="px-2 mt-1">
                                         <b>Link : </b>
                                         {pro.links}
                                     </div>
                                 )}
                                 {pro.description && (
-                                    <div className="ml-2 px-2 text-custom-small mt-2 text-justify leading-tight">
+                                    <div className="ml-2 px-2 mt-2 text-justify leading-tight">
                                         {pro.description}
                                     </div>
                                 )}
@@ -186,26 +183,30 @@ function Template1({ formData }) {
                 (formData.certifications[0]?.name ||
                     formData.certifications[0]?.authority) && (
                     <div className="mt-2">
-                        <div className="text-custom-large font-semibold">
+                        <div className="text-xl font-extrabold">
                             Certifications
                         </div>
                         <hr className="border-gray-600" />
-                        {formData.certifications.map((certificate, idx) => (
-                            <div
-                                key={idx}
-                                className="mt-1 text-custom-small leading-tight flex"
-                            >
-                                {certificate.name && (
-                                    <div>{certificate.name}</div>
-                                )}
-                                {certificate.authority && (
-                                    <div className="ml-1 ">
-                                        by{" "}
-                                        <strong>{certificate.authority}</strong>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        <ul className="list-disc ml-5">
+                            {formData.certifications.map((certificate, idx) => (
+                                <li
+                                    key={idx}
+                                    className="mt-1 text-md leading-tight"
+                                >
+                                    {certificate.name && (
+                                        <span>{certificate.name}</span>
+                                    )}
+                                    {certificate.authority && (
+                                        <span className="ml-1">
+                                            by{" "}
+                                            <strong>
+                                                {certificate.authority}
+                                            </strong>
+                                        </span>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 )}
         </div>
