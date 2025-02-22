@@ -39,6 +39,9 @@ const projectFormDefaultValues = {
     technologies: "",
     links: "",
 };
+const achievementFormDefaultValues = {
+    name : "",
+};
 const formDefaultValues = {
     firstName: "",
     lastName: "",
@@ -53,16 +56,24 @@ const formDefaultValues = {
     certifications: [certificationFormDefaultValues],
     experiences: [experienceFormDefaultValues],
     projects: [projectFormDefaultValues],
+    achievements : [achievementFormDefaultValues],
     template: "1",
 };
 
 function Create() {
     const ResumeInfo = useSelector((state) => state.resume.ResumeInfo);
 
-    const { register, handleSubmit, getValues, control, reset, watch, setValue } =
-        useForm({
-            defaultValues: formDefaultValues,
-        });
+    const {
+        register,
+        handleSubmit,
+        getValues,
+        control,
+        reset,
+        watch,
+        setValue,
+    } = useForm({
+        defaultValues: formDefaultValues,
+    });
     const educationArrayFields = useFieldArray({
         control,
         name: "educations",
@@ -79,6 +90,10 @@ function Create() {
         control,
         name: "projects",
     });
+    const achievementArrayFields = useFieldArray({
+        control,
+        name: "achievements",
+    });
 
     console.log("GET", getValues());
 
@@ -92,17 +107,16 @@ function Create() {
 
     const formData = watch();
     const [template, setTemplate] = useState(ResumeInfo?.template || "1");
-    
+
     useEffect(() => {
         if (formData.template !== template) {
             setTemplate(formData.template);
         }
     }, [formData.template]);
-    
 
     const handleTemplateChange = (newTemplate) => {
         setTemplate(newTemplate);
-        setValue("template", newTemplate);  
+        setValue("template", newTemplate);
     };
 
     return (
@@ -148,6 +162,7 @@ function Create() {
                         certificationArrayFields={certificationArrayFields}
                         experienceArrayFields={experienceArrayFields}
                         projectArrayFields={projectArrayFields}
+                        achievementArrayFields={achievementArrayFields}
                         register={register}
                         template={template}
                     />

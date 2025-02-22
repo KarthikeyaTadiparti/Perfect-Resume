@@ -93,14 +93,14 @@ function Template1({ formData }) {
                                 className="mt-1 text-md leading-tight"
                             >
                                 <div className="flex justify-between">
-                                    <div className="mt-2 flex font-bold divide-solid divide-x-[1px] divide-gray-900  justify-center items-center">
+                                    <div className="mt-2 flex font-bold divide-solid divide-x-[1px] divide-gray-900 justify-center items-center">
                                         {ex.companyName && (
-                                            <div className="px-2">
+                                            <div className="pr-2">
                                                 {ex.companyName}
                                             </div>
                                         )}
                                         {ex.title && (
-                                            <div className="px-2">
+                                            <div className="pl-2">
                                                 {ex.title}
                                             </div>
                                         )}
@@ -121,7 +121,7 @@ function Template1({ formData }) {
                                 </div>
 
                                 {ex.description && (
-                                    <div className="ml-2 px-2 mt-2 text-justify leading-tight">
+                                    <div className="ml-4 px-2 text-justify leading-tight">
                                         {ex.description}
                                     </div>
                                 )}
@@ -148,7 +148,7 @@ function Template1({ formData }) {
                                 <div className="flex justify-between">
                                     <div className="mt-2 font-bold">
                                         {pro.title && (
-                                            <div className="px-2">
+                                            <div className="pr-2">
                                                 {pro.title}
                                             </div>
                                         )}
@@ -170,7 +170,7 @@ function Template1({ formData }) {
                                     </div>
                                 )}
                                 {pro.description && (
-                                    <div className="ml-2 px-2 mt-2 text-justify leading-tight">
+                                    <div className="ml-4 px-2 text-justify leading-tight">
                                         {pro.description}
                                     </div>
                                 )}
@@ -187,11 +187,11 @@ function Template1({ formData }) {
                             Certifications
                         </div>
                         <hr className="border-gray-600" />
-                        <ul className="list-disc ml-5">
+                        <ul className="list-disc ml-8 mt-2">
                             {formData.certifications.map((certificate, idx) => (
                                 <li
                                     key={idx}
-                                    className="mt-1 text-md leading-tight"
+                                    className="text-md leading-tight"
                                 >
                                     {certificate.name && (
                                         <span>{certificate.name}</span>
@@ -209,6 +209,23 @@ function Template1({ formData }) {
                         </ul>
                     </div>
                 )}
+
+            {formData.achievements && formData.achievements[0]?.name && (
+                <div className="mt-2">
+                    <div className="text-xl font-extrabold">Achievements</div>
+                    <hr className="border-gray-600" />
+                    <ul className="list-disc ml-8 mt-2">
+                        {formData.achievements.map((ach, idx) => (
+                            <li
+                                key={idx}
+                                className="text-md leading-tight"
+                            >
+                                {ach.name && <span>{ach.name}</span>}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 }

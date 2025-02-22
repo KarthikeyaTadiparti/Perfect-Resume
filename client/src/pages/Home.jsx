@@ -17,13 +17,13 @@ function Home() {
                     few steps. <br />
                     Don't just apply - impress!
                 </p>
-
-                <Link
-                    to="/resume"
-                    className="text-white bg-pri-blue hover:bg-dark-pri-blue font-medium rounded-lg text-sm px-6 py-3 text-center my-6"
-                >
-                    Create Resume
-                </Link>
+                <button className="text-white bg-pri-blue hover:bg-dark-pri-blue font-medium rounded-lg text-sm px-6 py-3 text-center my-6">
+                    <Link
+                        to="/resume"
+                    >
+                        Create Resume
+                    </Link>
+                </button>
             </div>
             <div>
                 <img

@@ -41,6 +41,9 @@ const projectFormDefaultValues = {
     technologies: "",
     links: "",
 };
+const achievementFormDefaultValues = {
+    name : "",
+};
 
 function EditFields({
     handleSubmit,
@@ -48,6 +51,7 @@ function EditFields({
     certificationArrayFields,
     experienceArrayFields,
     projectArrayFields,
+    achievementArrayFields,
     register,
     template
 }) {
@@ -465,6 +469,62 @@ function EditFields({
                                     }
                                 >
                                     <FiPlus /> Add Certification
+                                </Button>
+                            </div>
+                        </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Accordion for Achievement */}
+                    <AccordionItem value="item-6">
+                        <AccordionTrigger>Achievements</AccordionTrigger>
+                        <AccordionContent>
+                            {achievementArrayFields.fields.map((_, idx) => (
+                                <div
+                                    className="grid grid-cols-[1fr_50px] items-end rounded-b-lg px-8 bg-white border-gray-200 gap-x-4"
+                                    key={idx}
+                                >
+                                    <Input
+                                        labelName="Achievement"
+                                        {...register(
+                                            `achievements.${idx}.name`
+                                        )}
+                                    />
+                                    
+                                    <Button
+                                        type="button"
+                                        onClick={() => {
+                                            if (
+                                                achievementArrayFields.fields
+                                                    .length === 1
+                                            ) {
+                                                return handleError(
+                                                    "There must be atleast at least one Field"
+                                                );
+                                            } else {
+                                                achievementArrayFields.remove(
+                                                    idx
+                                                );
+                                            }
+                                        }}
+                                        variant="destructive"
+                                    >
+                                        <FaTrash />
+                                    </Button>
+                                    <Separator className="col-span-2 mt-4" />
+                                </div>
+                            ))}
+
+                            <div className="px-8">
+                                <Button
+                                    type="button"
+                                    className="w-full bg-pri-blue col-span-2 my-4 text-white py-2 px-4 rounded-md hover:bg-dark-pri-blue flex justify-center items-center"
+                                    onClick={() =>
+                                        achievementArrayFields.append(
+                                            achievementFormDefaultValues
+                                        )
+                                    }
+                                >
+                                    <FiPlus /> Add Achievement
                                 </Button>
                             </div>
                         </AccordionContent>

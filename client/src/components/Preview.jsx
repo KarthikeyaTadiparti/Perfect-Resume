@@ -15,7 +15,7 @@ function Preview({ formData, className, scaleFactor = 1 }) {
                 transformOrigin: "top left",
             }}
         >
-            <div id="pdf-content" className="w-full h-full p-8">
+            <div id="pdf-content" className="w-full min-h-full p-8">
                 {formData.template === "1" ? (
                     <Template1 formData={formData} />
                 ) : (

@@ -47,6 +47,11 @@ const resumeSchema = new Schema({
             links: String,
         },
     ],
+    achievements: [
+        {
+            name: String,
+        },
+    ],
     template: String,
 });
 
