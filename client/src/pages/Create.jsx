@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { merge } from "lodash";
 import { useSelector } from "react-redux";
+import { FaArrowRight } from "react-icons/fa";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -129,32 +130,44 @@ function Create() {
     return (
         <div className="w-screen h-full overflow-hidden">
             <Sheet>
-                <SheetTrigger className="absolute border size-10 bg-white rounded-md print:hidden">
-                    <i className="fa-solid fa-arrow-right"></i>
+                <SheetTrigger className="fixed top-28 border-2 p-2 bg-white rounded-md print:hidden flex flex-col justify-center items-center gap-2">
+                    <FaArrowRight />
+                    <div className="vertical-text">Templates</div>
                 </SheetTrigger>
                 <SheetContent side="left">
                     <SheetHeader>
-                        <SheetTitle>Select Template</SheetTitle>
-                        <SheetDescription className="flex justify-center gap-10">
-                            <button
-                                className={`px-4 py-2 border rounded ${
-                                    template === "1"
-                                        ? "bg-blue-500 text-white"
-                                        : "bg-gray-200"
-                                }`}
-                                onClick={() => handleTemplateChange("1")}
-                            >
-                                Template 1
+                        <SheetTitle className="text-center mb-2">
+                            Select Template
+                        </SheetTitle>
+                        <SheetDescription className="flex justify-center gap-5">
+                            <button>
+                                <img
+                                    src="/images/Template1.jpg"
+                                    className={`h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                        template === "1"
+                                            ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
+                                            : "bg-gray-200 border-gray-300 hover:bg-gray-300"
+                                    }`}
+                                    onClick={() => handleTemplateChange("1")}
+                                />
+                                <div className="text-center mt-2 font-medium">
+                                    Classic
+                                </div>
                             </button>
-                            <button
-                                className={`px-4 py-2 border rounded ${
-                                    template === "2"
-                                        ? "bg-blue-500 text-white"
-                                        : "bg-gray-200"
-                                }`}
-                                onClick={() => handleTemplateChange("2")}
-                            >
-                                Template 2
+
+                            <button>
+                                <img
+                                    src="/images/Template2.jpg"
+                                    className={`h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                        template === "2"
+                                            ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
+                                            : "bg-gray-200 border-gray-300 hover:bg-gray-300"
+                                    }`}
+                                    onClick={() => handleTemplateChange("2")}
+                                />
+                                <div className="text-center mt-2 font-medium">
+                                    Modern
+                                </div>
                             </button>
                         </SheetDescription>
                     </SheetHeader>

@@ -27,7 +27,7 @@ function Home() {
             </div>
             <div>
                 <img
-                    src="./images/resume-illustration.svg"
+                    src="/images/resume-illustration.svg"
                     alt="resume-illustration"
                     className="h-[90%] float-right"
                 />

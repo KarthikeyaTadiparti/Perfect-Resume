@@ -24,6 +24,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
 import { removeResumeInfo, setResumeInfo } from "@/slices/resumeSlice";
+import { FaPlus } from "react-icons/fa6";
 
 function Resume() {
     const [url, setUrl] = useState("");
@@ -81,7 +82,7 @@ function Resume() {
             // console.log("api : ", apiData);
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    const others = ""; 
+                    const others = "";
                     console.log("data :", data);
                     const apiData = data;
                     const mappedData = {
@@ -338,7 +339,10 @@ function Resume() {
 
                 <Link to="/resume/new">
                     <div className="w-56 h-72 flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow hover:scale-[1.02] transition-all">
-                        <i className="text-[60px] hover:text-pri-blue p-6 text-gray-200 fa-solid fa-plus"></i>
+                        <FaPlus
+                            style={{ fontSize: "60px" }}
+                            className="text-pri-blue"
+                        />
                     </div>
                 </Link>
             </div>

@@ -17,18 +17,6 @@ module.exports = {
     	},
     	extend: {
     		fontFamily: {
-    			times: [
-    				'Times New Roman"',
-    				'serif'
-    			],
-    			cormorant: [
-    				'Cormorant Garamond',
-    				'serif'
-    			],
-				garamond: [
-    				'EB Garamond',
-    				'serif'
-    			],
 				raleway: [
     				"Raleway",
     				'serif'
