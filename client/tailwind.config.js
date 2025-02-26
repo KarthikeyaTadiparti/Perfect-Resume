@@ -24,6 +24,10 @@ module.exports = {
 				spectral: [
     				"Spectral",
     				'serif'
+    			],
+				roboto: [
+    				"Roboto",
+    				'serif'
     			]
     		},
     		colors: {

@@ -2,6 +2,7 @@ import React from "react";
 import Template1 from "./Template1";
 import Template2 from "./Template2";
 import Template3 from "./Template3";
+import Template4 from "./Template4";
 import { cn } from "@/lib/utils";
 
 function Preview({ formData, className, scaleFactor = 1 }) {
@@ -13,6 +14,8 @@ function Preview({ formData, className, scaleFactor = 1 }) {
                 return <Template2 formData={formData} />;
             case "3":
                 return <Template3 formData={formData} />;
+            case "4":
+                return <Template4 formData={formData} />;
             default:
                 return <div>No template selected</div>;
         }

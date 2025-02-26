@@ -140,25 +140,25 @@ function Create() {
                             Select Template
                         </SheetTitle>
                         <SheetDescription className="grid grid-cols-2 justify-center gap-5">
-                            <button>
+                            <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template1.jpg"
-                                    className={`h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                    className={`flex-1 w-44 h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "1"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
                                             : "bg-gray-200 border-gray-300 hover:bg-gray-300"
                                     }`}
                                     onClick={() => handleTemplateChange("1")}
                                 />
-                                <div className="text-center mt-2 font-medium">
-                                    Classic
+                                <div className="mt-2 font-medium">
+                                    Classic Template
                                 </div>
                             </button>
 
-                            <button>
+                            <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template2.jpg"
-                                    className={`h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                    className={`flex-1 w-44 h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "2"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
                                             : "bg-gray-200 border-gray-300 hover:bg-gray-300"
@@ -166,22 +166,37 @@ function Create() {
                                     onClick={() => handleTemplateChange("2")}
                                 />
                                 <div className="text-center mt-2 font-medium">
-                                    Modern
+                                    Modern Template
                                 </div>
                             </button>
 
-                            <button>
+                            <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template3.jpg"
-                                    className={`h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                    className={`flex-1 w-44 h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "3"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
                                             : "bg-gray-200 border-gray-300 hover:bg-gray-300"
                                     }`}
                                     onClick={() => handleTemplateChange("3")}
                                 />
-                                <div className="text-center mt-2 font-medium">
-                                    template 3
+                                <div className=" mt-2 font-medium">
+                                    Blue and White Professional Template
+                                </div>
+                            </button>
+
+                            <button className="flex flex-col justify-center items-center">
+                                <img
+                                    src="/images/Template4.jpg"
+                                    className={`flex-1 w-44 h-60 object-fill overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                        template === "4"
+                                            ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
+                                            : "bg-gray-200 border-gray-300 hover:bg-gray-300"
+                                    }`}
+                                    onClick={() => handleTemplateChange("4")}
+                                />
+                                <div className=" mt-2 font-medium">
+                                    Compact Template
                                 </div>
                             </button>
                         </SheetDescription>
