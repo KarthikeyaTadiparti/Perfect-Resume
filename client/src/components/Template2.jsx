@@ -2,82 +2,266 @@ import React from "react";
 
 function Template2({ formData }) {
     return (
-        <div className="font-serif p-6 max-w-4xl mx-auto">
-            {/* Header Section */}
-            <div className="text-center text-2xl font-bold">
-                {formData.firstName} {formData.lastName}
+        <div className="font-raleway font-light tracking-tight">
+            <div className="text-center">
+                <div className="text-4xl font-light tracking-wide">
+                    {formData.firstName} {formData.lastName}
+                </div>
+
+                <div className="mt-2 flex text-sm divide-solid divide-x-[1px] divide-gray-900 font-normal justify-center items-center">
+                    {formData.mobile && (
+                        <div className="px-2">{formData.mobile}</div>
+                    )}
+                    {formData.email && (
+                        <div className="px-2">{formData.email}</div>
+                    )}
+                    {(formData.geo?.city || formData.geo?.country) && (
+                        <div className="px-2">
+                            {formData.geo?.city && formData.geo?.country
+                                ? `${formData.geo.city}, ${formData.geo.country}`
+                                : formData.geo.city || formData.geo.country}
+                        </div>
+                    )}
+                </div>
             </div>
-            <div className="text-center text-sm mt-1 flex justify-center gap-4">
-                {formData.mobile && <span>📞 {formData.mobile}</span>}
-                {formData.email && <span>✉️ {formData.email}</span>}
-                {formData.geo?.city || formData.geo?.country ? (
-                    <span>📍 {formData.geo.city}, {formData.geo.country}</span>
-                ) : null}
-            </div>
-            <hr className="my-4 border-gray-400" />
-            
-            {/* Career Objective */}
+
             {formData.headline && (
-                <div>
-                    <h2 className="text-lg font-semibold">Career Objective</h2>
-                    <hr className="border-gray-400" />
-                    <p className="text-sm mt-2 text-justify">{formData.headline}</p>
+                <div className="mt-2">
+                    <div className="text-xl font-semibold">
+                        Career Objective
+                    </div>
+                    <hr className="border-gray-600" />
+                    <div className="text-md mt-2 text-justify  leading-tight">
+                        {formData.headline}
+                    </div>
                 </div>
             )}
 
-            {/* Education Section */}
-            {formData.educations && formData.educations.length > 0 && (
-                <div className="mt-4">
-                    <h2 className="text-lg font-semibold">Education</h2>
-                    <hr className="border-gray-400" />
-                    {formData.educations.map((edu, idx) => (
-                        <div key={idx} className="mt-2 text-sm">
-                            <strong>{edu.schoolName}</strong> ({edu.start.year} - {edu.end.year})<br />
-                            {edu.degree} ({edu.fieldOfStudy}), {edu.grade && `Percentage: ${edu.grade}%`}
+            {formData.educations &&
+                (formData.educations[0]?.schoolName ||
+                    formData.educations[0]?.fieldOfStudy ||
+                    formData.educations[0]?.degree ||
+                    formData.educations[0]?.grade ||
+                    formData.educations[0]?.start.year ||
+                    formData.educations[0]?.end.year) && (
+                    <div className="mt-2">
+                        <div className="text-xl font-semibold">Education</div>
+
+                        <hr className="border-gray-600" />
+
+                        {formData.educations.map((edu, idx) => (
+                            <div
+                                key={idx}
+                                className="mt-1 text-md leading-tight flex justify-between"
+                            >
+                                {(edu.start.year || edu.end.year) && (
+                                    <div>
+                                        {edu.start.year} - {edu.end.year}{" "}
+                                    </div>
+                                )}
+                                {(edu.degree ||
+                                    edu.fieldOfStudy ||
+                                    edu.schoolName) && (
+                                    <div className="ml-2 grow">
+                                        {edu.degree} ({edu.fieldOfStudy}) at{" "}
+                                        <span className="font-medium">{edu.schoolName}</span>
+                                    </div>
+                                )}
+
+                                {edu.grade && (
+                                    <div>(Percentage : {edu.grade}%)</div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+            {formData.experiences &&
+                (formData.experiences[0]?.companyName ||
+                    formData.experiences[0]?.title ||
+                    formData.experiences[0]?.location ||
+                    formData.experiences[0]?.start.year ||
+                    formData.experiences[0]?.end.year) && (
+                    <div className="mt-2">
+                        <div className="text-xl font-semibold">Experience</div>
+
+                        <hr className="border-gray-600" />
+
+                        {formData.experiences.map((ex, idx) => (
+                            <div
+                                key={idx}
+                                className="mt-1 text-md leading-tight"
+                            >
+                                <div className="flex justify-between">
+                                    <div className="mt-2 flex font-medium divide-solid divide-x-[1px] divide-gray-900 justify-center items-center">
+                                        {ex.companyName && (
+                                            <div className="pr-2">
+                                                {ex.companyName}
+                                            </div>
+                                        )}
+                                        {ex.title && (
+                                            <div className="pl-2">
+                                                {ex.title}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-2 flex divide-solid divide-x-[1px] divide-gray-900 font-medium justify-center items-center">
+                                        {ex.location && (
+                                            <div className="px-2">
+                                                {ex.location}
+                                            </div>
+                                        )}
+                                        {(ex.start.year || ex.end.year) && (
+                                            <div className="px-2">
+                                                {ex.start.year} - {ex.end.year}{" "}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {ex.description && (
+                                    <div className="ml-4 px-2 text-justify leading-tight">
+                                        {ex.description}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+            {formData.projects &&
+                (formData.projects[0]?.title ||
+                    formData.projects[0]?.description ||
+                    formData.projects[0]?.technologies ||
+                    formData.projects[0]?.links) && (
+                    <div className="mt-2">
+                        <div className="text-xl font-semibold">Projects</div>
+
+                        <hr className="border-gray-600" />
+
+                        {formData.projects.map((pro, idx) => (
+                            <div
+                                key={idx}
+                                className="mt-1 text-md leading-tight"
+                            >
+                                <div className="flex justify-between">
+                                    <div className="mt-2 font-medium">
+                                        {pro.title && (
+                                            <div className="pr-2">
+                                                {pro.title}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-2 font-medium">
+                                        {pro.technologies && (
+                                            <div className="px-2">
+                                                {pro.technologies}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {pro.links && (
+                                    <div className="px-6 mt-1">
+                                        <span className="font-medium">Link : </span>
+                                        {pro.links}
+                                    </div>
+                                )}
+                                {pro.description && (
+                                    <div className="ml-4 px-2 text-justify leading-tight">
+                                        {pro.description}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+            {formData.skills &&
+                (formData.skills.languages ||
+                    formData.skills.databases ||
+                    formData.skills.tools ||
+                    formData.skills.libraries ||
+                    formData.skills.others) && (
+                    <div className="mt-2">
+                        <div className="text-xl font-semibold">Skillsets</div>
+                        <hr className="border-gray-600" />
+                        <div className="ml-8 text-md">
+                            {formData.skills.languages && (
+                                <div>
+                                    <span className="font-medium">Programming Languages : </span>{" "}
+                                    {formData.skills.languages}
+                                </div>
+                            )}
+                            {formData.skills.libraries && (
+                                <div>
+                                    <span className="font-medium">Libraries/Frameworks : </span>{" "}
+                                    {formData.skills.libraries}
+                                </div>
+                            )}
+                            {formData.skills.tools && (
+                                <div>
+                                    <span className="font-medium">Tools & Technologies : </span>{" "}
+                                    {formData.skills.tools}
+                                </div>
+                            )}
+                            {formData.skills.databases && (
+                                <div>
+                                    <span className="font-medium">Databases : </span>{" "}
+                                    {formData.skills.databases}
+                                </div>
+                            )}
+                            {formData.skills.others && (
+                                <div>
+                                    <span className="font-medium">Others : </span>
+                                    {" " + formData.skills.others}
+                                </div>
+                            )}
                         </div>
-                    ))}
-                </div>
-            )}
-            
-            {/* Experience Section */}
-            {formData.experiences && formData.experiences.length > 0 && (
-                <div className="mt-4">
-                    <h2 className="text-lg font-semibold">Experience</h2>
-                    <hr className="border-gray-400" />
-                    {formData.experiences.map((exp, idx) => (
-                        <div key={idx} className="mt-2 text-sm">
-                            <strong>{exp.companyName}</strong> ({exp.location}) - {exp.title} ({exp.start.year} - {exp.end.year})
-                            {exp.description && <p className="mt-1 text-xs text-justify">{exp.description}</p>}
+                    </div>
+                )}
+
+            {formData.certifications &&
+                (formData.certifications[0]?.name ||
+                    formData.certifications[0]?.authority) && (
+                    <div className="mt-2">
+                        <div className="text-xl font-semibold">
+                            Certifications
                         </div>
-                    ))}
-                </div>
-            )}
-            
-            {/* Projects Section */}
-            {formData.projects && formData.projects.length > 0 && (
-                <div className="mt-4">
-                    <h2 className="text-lg font-semibold">Projects</h2>
-                    <hr className="border-gray-400" />
-                    {formData.projects.map((proj, idx) => (
-                        <div key={idx} className="mt-2 text-sm">
-                            <strong>{proj.title}</strong> - {proj.technologies}<br />
-                            {proj.links && <p className="text-blue-600">🔗 {proj.links}</p>}
-                            <p className="mt-1 text-xs text-justify">{proj.description}</p>
-                        </div>
-                    ))}
-                </div>
-            )}
-            
-            {/* Certifications Section */}
-            {formData.certifications && formData.certifications.length > 0 && (
-                <div className="mt-4">
-                    <h2 className="text-lg font-semibold">Certifications</h2>
-                    <hr className="border-gray-400" />
-                    {formData.certifications.map((cert, idx) => (
-                        <div key={idx} className="mt-2 text-sm">
-                            {cert.name} {cert.authority && <span>by <strong>{cert.authority}</strong></span>}
-                        </div>
-                    ))}
+                        <hr className="border-gray-600" />
+                        <ul className="list-disc ml-8 mt-2">
+                            {formData.certifications.map((certificate, idx) => (
+                                <li key={idx} className="text-md leading-tight">
+                                    {certificate.name && (
+                                        <span>{certificate.name}</span>
+                                    )}
+                                    {certificate.authority && (
+                                        <span className="ml-1">
+                                            by{" "}
+                                            <span className="font-medium">
+                                                {certificate.authority}
+                                            </span>
+                                        </span>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
+            {formData.achievements && formData.achievements[0]?.name && (
+                <div className="mt-2">
+                    <div className="text-xl font-semibold">Achievements</div>
+                    <hr className="border-gray-600" />
+                    <ul className="list-disc ml-8 mt-2">
+                        {formData.achievements.map((ach, idx) => (
+                            <li key={idx} className="text-md leading-tight">
+                                {ach.name && <span>{ach.name}</span>}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             )}
         </div>

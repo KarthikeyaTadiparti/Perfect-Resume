@@ -4,16 +4,6 @@
 
 @layer base {
     :root {
-        --font-size-small-base: 0.813rem; /*13px*/
-        --font-size-medium-base: 1rem; /*16px*/
-        --font-size-large-base: 1.125rem; /*18px*/
-        --font-size-xlarge-base: 1.5rem; /*24px*/
-
-        /* Assign initial values */
-        --font-size-small: var(--font-size-small-base);
-        --font-size-medium: var(--font-size-medium-base);
-        --font-size-large: var(--font-size-large-base);
-        --font-size-xlarge: var(--font-size-xlarge-base);
 
         --background: 0 0% 100%;
         --foreground: 240 10% 3.9%;
@@ -77,12 +67,6 @@
 }
 
 @media print {
-    /* :root {
-        --font-size-small: calc(var(--font-size-small-base) * 1.414);
-        --font-size-medium: calc(var(--font-size-medium-base) * 1.414);
-        --font-size-large: calc(var(--font-size-large-base) * 1.414);
-        --font-size-xlarge: calc(var(--font-size-xlarge-base) * 1.414);
-    } */
     * {
         box-sizing: border-box;
     }

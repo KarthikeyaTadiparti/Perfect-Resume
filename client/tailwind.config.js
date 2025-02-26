@@ -24,13 +24,19 @@ module.exports = {
     			cormorant: [
     				'Cormorant Garamond',
     				'serif'
+    			],
+				garamond: [
+    				'EB Garamond',
+    				'serif'
+    			],
+				raleway: [
+    				"Raleway",
+    				'serif'
+    			],
+				spectral: [
+    				"Spectral",
+    				'serif'
     			]
-    		},
-    		fontSize: {
-    			'custom-small': 'var(--font-size-small)',
-    			'custom-medium': 'var(--font-size-medium)',
-    			'custom-large': 'var(--font-size-large)',
-    			'custom-xlarge': 'var(--font-size-xlarge)'
     		},
     		colors: {
     			'pri-blue': '#004E98',
