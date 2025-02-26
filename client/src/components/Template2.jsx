@@ -31,7 +31,7 @@ function Template2({ formData }) {
                         Career Objective
                     </div>
                     <hr className="border-gray-600" />
-                    <div className="text-md mt-2 text-justify  leading-tight">
+                    <div className=" mt-2 text-justify  leading-tight">
                         {formData.headline}
                     </div>
                 </div>
@@ -50,29 +50,37 @@ function Template2({ formData }) {
                         <hr className="border-gray-600" />
 
                         {formData.educations.map((edu, idx) => (
-                            <div
-                                key={idx}
-                                className="mt-1 text-md leading-tight flex justify-between"
-                            >
-                                {(edu.start.year || edu.end.year) && (
-                                    <div>
-                                        {edu.start.year} - {edu.end.year}{" "}
+                                    <div key={idx} className="mt-1">
+                                        <div className="flex justify-between">
+                                            {edu.schoolName && (
+                                                <div className="font-medium">
+                                                    {edu.schoolName}
+                                                </div>
+                                            )}
+                                            {(edu.start.year ||
+                                                edu.end.year) && (
+                                                <div className="font-medium">
+                                                    {edu.start.year} -{" "}
+                                                    {edu.end.year}{" "}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <ul className="list-disc ml-6">
+                                            {(edu.degree ||
+                                                edu.fieldOfStudy) && (
+                                                <li className="">
+                                                    {edu.degree} (
+                                                    {edu.fieldOfStudy})
+                                                </li>
+                                            )}
+                                            {edu.grade && (
+                                                <li>
+                                                    Percentage : {edu.grade}%
+                                                </li>
+                                            )}
+                                        </ul>
                                     </div>
-                                )}
-                                {(edu.degree ||
-                                    edu.fieldOfStudy ||
-                                    edu.schoolName) && (
-                                    <div className="ml-2 grow">
-                                        {edu.degree} ({edu.fieldOfStudy}) at{" "}
-                                        <span className="font-medium">{edu.schoolName}</span>
-                                    </div>
-                                )}
-
-                                {edu.grade && (
-                                    <div>(Percentage : {edu.grade}%)</div>
-                                )}
-                            </div>
-                        ))}
+                                ))}
                     </div>
                 )}
 
@@ -90,7 +98,7 @@ function Template2({ formData }) {
                         {formData.experiences.map((ex, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-md leading-tight"
+                                className="mt-1 leading-tight"
                             >
                                 <div className="flex justify-between">
                                     <div className="mt-2 flex font-medium divide-solid divide-x-[1px] divide-gray-900 justify-center items-center">
@@ -143,7 +151,7 @@ function Template2({ formData }) {
                         {formData.projects.map((pro, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-md leading-tight"
+                                className="mt-1  leading-tight"
                             >
                                 <div className="flex justify-between">
                                     <div className="mt-2 font-medium">
@@ -188,7 +196,7 @@ function Template2({ formData }) {
                     <div className="mt-2">
                         <div className="text-xl font-semibold">Skillsets</div>
                         <hr className="border-gray-600" />
-                        <div className="ml-8 text-md">
+                        <div className="ml-8 ">
                             {formData.skills.languages && (
                                 <div>
                                     <span className="font-medium">Programming Languages : </span>{" "}
@@ -233,7 +241,7 @@ function Template2({ formData }) {
                         <hr className="border-gray-600" />
                         <ul className="list-disc ml-8 mt-2">
                             {formData.certifications.map((certificate, idx) => (
-                                <li key={idx} className="text-md leading-tight">
+                                <li key={idx} className=" leading-tight">
                                     {certificate.name && (
                                         <span>{certificate.name}</span>
                                     )}
@@ -257,7 +265,7 @@ function Template2({ formData }) {
                     <hr className="border-gray-600" />
                     <ul className="list-disc ml-8 mt-2">
                         {formData.achievements.map((ach, idx) => (
-                            <li key={idx} className="text-md leading-tight">
+                            <li key={idx} className=" leading-tight">
                                 {ach.name && <span>{ach.name}</span>}
                             </li>
                         ))}

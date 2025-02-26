@@ -139,7 +139,7 @@ function Create() {
                         <SheetTitle className="text-center mb-2">
                             Select Template
                         </SheetTitle>
-                        <SheetDescription className="flex justify-center gap-5">
+                        <SheetDescription className="grid grid-cols-2 justify-center gap-5">
                             <button>
                                 <img
                                     src="/images/Template1.jpg"
@@ -167,6 +167,21 @@ function Create() {
                                 />
                                 <div className="text-center mt-2 font-medium">
                                     Modern
+                                </div>
+                            </button>
+
+                            <button>
+                                <img
+                                    src="/images/Template3.jpg"
+                                    className={`h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
+                                        template === "3"
+                                            ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
+                                            : "bg-gray-200 border-gray-300 hover:bg-gray-300"
+                                    }`}
+                                    onClick={() => handleTemplateChange("3")}
+                                />
+                                <div className="text-center mt-2 font-medium">
+                                    template 3
                                 </div>
                             </button>
                         </SheetDescription>

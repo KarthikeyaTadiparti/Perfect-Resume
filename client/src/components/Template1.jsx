@@ -31,7 +31,7 @@ function Template1({ formData }) {
                         Career Objective
                     </div>
                     <hr className="border-gray-600" />
-                    <div className="text-md mt-2 text-justify  leading-tight">
+                    <div className=" mt-2 text-justify  leading-tight">
                         {formData.headline}
                     </div>
                 </div>
@@ -52,7 +52,7 @@ function Template1({ formData }) {
                         {formData.educations.map((edu, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-md leading-tight flex justify-between"
+                                className="mt-1  leading-tight flex justify-between"
                             >
                                 {(edu.start.year || edu.end.year) && (
                                     <div>
@@ -90,7 +90,7 @@ function Template1({ formData }) {
                         {formData.experiences.map((ex, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-md leading-tight"
+                                className="mt-1 leading-tight"
                             >
                                 <div className="flex justify-between">
                                     <div className="mt-2 flex font-bold divide-solid divide-x-[1px] divide-gray-900 justify-center items-center">
@@ -143,7 +143,7 @@ function Template1({ formData }) {
                         {formData.projects.map((pro, idx) => (
                             <div
                                 key={idx}
-                                className="mt-1 text-md leading-tight"
+                                className="mt-1  leading-tight"
                             >
                                 <div className="flex justify-between">
                                     <div className="mt-2 font-semibold">
@@ -188,7 +188,7 @@ function Template1({ formData }) {
                     <div className="mt-2">
                         <div className="text-xl font-bold">Skillsets</div>
                         <hr className="border-gray-600" />
-                        <div className="ml-8 text-md">
+                        <div className="ml-8 ">
                             {formData.skills.languages && (
                                 <div>
                                     <span className="font-semibold">Programming Languages : </span>{" "}
@@ -233,7 +233,7 @@ function Template1({ formData }) {
                         <hr className="border-gray-600" />
                         <ul className="list-disc ml-8 mt-2">
                             {formData.certifications.map((certificate, idx) => (
-                                <li key={idx} className="text-md leading-tight">
+                                <li key={idx} className=" leading-tight">
                                     {certificate.name && (
                                         <span>{certificate.name}</span>
                                     )}
@@ -257,7 +257,7 @@ function Template1({ formData }) {
                     <hr className="border-gray-600" />
                     <ul className="list-disc ml-8 mt-2">
                         {formData.achievements.map((ach, idx) => (
-                            <li key={idx} className="text-md leading-tight">
+                            <li key={idx} className=" leading-tight">
                                 {ach.name && <span>{ach.name}</span>}
                             </li>
                         ))}
