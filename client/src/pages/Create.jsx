@@ -187,7 +187,7 @@ function Create() {
                         template={template}
                     />
                 </div>
-                <div className="w-2/3 h-full">
+                <div className="w-2/3 h-full border-2 print:border-none shadow-md print:shadow-none">
                     <Preview formData={formData} />
                 </div>
             </div>
