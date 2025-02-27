@@ -14,13 +14,7 @@ import {
     DialogTrigger,
     DialogFooter,
 } from "@/components/ui/dialog";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { data } from "../data";
 import { removeResumeInfo, setResumeInfo } from "@/slices/resumeSlice";
@@ -177,10 +171,6 @@ function Resume() {
         }
     };
 
-    const renameResume = async (id) => {
-        console.log("renaming : ", id);
-    };
-
     const deleteResume = async (id) => {
         setIsDeleting(true);
         console.log("deleting : ", id);
@@ -294,37 +284,16 @@ function Resume() {
                                         <h5 className="text-lg font-bold tracking-tight text-gray-900">
                                             {resume.name}
                                         </h5>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger
-                                                onClick={(e) =>
-                                                    e.preventDefault()
-                                                }
-                                            >
-                                                <HiOutlineDotsHorizontal className="scale-[1.2]" />
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent>
-                                                <DropdownMenuItem
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        renameResume(
-                                                            resume._id
-                                                        );
-                                                    }}
-                                                >
-                                                    Rename
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        deleteResume(
-                                                            resume._id
-                                                        );
-                                                    }}
-                                                >
-                                                    Delete
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
+                                        <button
+                                            className="bg-gray-200 p-1 rounded-sm"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                deleteResume(resume._id);
+                                            }}
+                                        >
+                                            <FaTrash />
+                                        </button>
                                     </div>
 
                                     <p className="text-xs font-normal text-gray-700">
