@@ -48,7 +48,7 @@ function Navbar() {
                     <Link to="/resume" className="hover:underline">
                         Resume
                     </Link>
-                    <Link to="*" className="hover:underline">
+                    <Link to="/aboutus" className="hover:underline">
                         About Us
                     </Link>
                     {!UserInfo ? (

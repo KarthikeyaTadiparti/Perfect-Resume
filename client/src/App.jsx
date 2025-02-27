@@ -9,6 +9,7 @@ import Edit from "./pages/Edit";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import Demo from "./pages/Demo"
+import AboutUs from "./pages/AboutUs";
 function App() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
     return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/demo" element={<Demo/>}></Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />}></Route>
+                <Route path="/aboutus" element={<AboutUs />}></Route>
                 <Route path="/auth/login" element={<Login />}></Route>
                 <Route path="/auth/signup" element={<Signup />}></Route>
                 <Route element={<PrivateRoute UserInfo={UserInfo} />}>
