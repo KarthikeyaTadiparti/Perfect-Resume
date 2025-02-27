@@ -13,7 +13,15 @@ import { FaTrash } from "react-icons/fa6";
 import { handleError, handleSuccess } from "@/lib/utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+} from "@/components/ui/dialog";
 
 const educationFormDefaultValues = {
     schoolName: "",
@@ -54,14 +62,19 @@ function EditFields({
     achievementArrayFields,
     register,
     template,
+    getValues
 }) {
+    const { id } = useParams();
+    const [name, setName] = useState("Untitled Resume");
+    console.log("name : " + name);
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { id } = useParams();
     console.log("resume id : ", id);
 
     const onSubmit = async (data) => {
-        data = { ...data, template: template };
+        id
+            ? (data = { ...data, template: template })
+            : (data = { ...data, template: template, name: name });
         console.log("template : ", template);
         const url = id
             ? `${import.meta.env.VITE_API_URL}/resume/${id}`
@@ -564,9 +577,59 @@ function EditFields({
                 </Accordion>
 
                 <div className="mt-4 flex justify-between">
-                    <Button type="submit" disable={isSubmitting}>
-                        Submit
-                    </Button>
+                    {id ? (
+                        <Button type="submit" disabled={isSubmitting}>
+                            Submit
+                        </Button>
+                    ) : (
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button type="button">Submit</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-md">
+                                <DialogHeader>
+                                    <DialogTitle className="mb-2">
+                                        Resume's Name
+                                    </DialogTitle>
+                                    <DialogDescription>
+                                        Please Enter the name of the resume
+                                    </DialogDescription>
+                                </DialogHeader>
+
+                                <div className="flex items-center space-x-2">
+                                    <div className="grid flex-1 gap-2">
+                                        <input
+                                            id="name"
+                                            name="name"
+                                            className="w-full bg-transparent bg-gray-50 text-slate-700 text-sm border border-slate-200 rounded-md px-2 py-2 transition duration-300 focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm"
+                                            value={name}
+                                            onChange={(e) =>
+                                                setName(e.target.value)
+                                            }
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <DialogFooter className="sm:justify-start mt-4">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        disabled={isSubmitting}
+                                        onClick={() => onSubmit(getValues())}
+                                    >
+                                        {isSubmitting ? (
+                                            <span className="flex items-center justify-center">
+                                                <div className="loader"></div>
+                                            </span>
+                                        ) : (
+                                            "Submit"
+                                        )}
+                                    </Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    )}
                     <Button type="button" onClick={handleDownload}>
                         Download PDF
                     </Button>
