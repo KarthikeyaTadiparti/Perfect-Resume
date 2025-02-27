@@ -82,7 +82,7 @@ function Login() {
                 />
                 <div className="mb-4">
                     <Link
-                        to="#"
+                        to="/auth/login"
                         className="text-pri-blue hover:underline hover:decoration-pri-blue"
                     >
                         Forgot password?

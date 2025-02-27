@@ -77,78 +77,83 @@ function Resume() {
 
     const callApi = async () => {
         try {
-            // const response = await axios.request(options);
-            // const apiData = response.data;
-            // console.log("api : ", apiData);
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    const others = "";
-                    console.log("data :", data);
-                    const apiData = data;
-                    const mappedData = {
-                        firstName: apiData.firstName || "",
-                        lastName: apiData.lastName || "",
-                        email: apiData.email || "",
-                        mobile: apiData.mobile || "",
-                        geo: {
-                            city: apiData.geo?.city || "",
-                            country: apiData.geo?.country || "",
-                        },
-                        headline: apiData.headline || "",
+            const response = await axios.request(options);
+            console.log(response);
+            const apiData = response.data;
+            console.log("api : ", apiData);
+            if (apiData.id) {
+                // return new Promise((resolve) => {
+                //     setTimeout(() => {
+                // console.log("data :", data);
+                // const apiData = data;
+                const others = "";
+                const mappedData = {
+                    firstName: apiData.firstName || "",
+                    lastName: apiData.lastName || "",
+                    email: apiData.email || "",
+                    mobile: apiData.mobile || "",
+                    geo: {
+                        city: apiData.geo?.city || "",
+                        country: apiData.geo?.country || "",
+                    },
+                    headline: apiData.headline || "",
 
-                        educations:
-                            apiData.educations?.map((education) => ({
-                                schoolName: education.schoolName || "",
-                                start: { year: education.start?.year || "" },
-                                end: { year: education.end?.year || "" },
-                                fieldOfStudy: education.fieldOfStudy || "",
-                                degree: education.degree || "",
-                                grade: education.grade || "",
-                            })) || [],
+                    educations:
+                        apiData.educations?.map((education) => ({
+                            schoolName: education.schoolName || "",
+                            start: { year: education.start?.year || "" },
+                            end: { year: education.end?.year || "" },
+                            fieldOfStudy: education.fieldOfStudy || "",
+                            degree: education.degree || "",
+                            grade: education.grade || "",
+                        })) || [],
 
-                        experiences:
-                            apiData.position?.map((experience) => ({
-                                companyName: experience.companyName || "",
-                                start: { year: experience.start?.year || "" },
-                                end: { year: experience.end?.year || "" },
-                                title: experience.title || "",
-                                description: experience.description || "",
-                                location: experience.location
-                                    ? experience.location
-                                          .split(",")
-                                          .slice(0, 2)
-                                          .join(", ")
-                                    : "",
-                            })) || [],
+                    experiences:
+                        apiData.position?.map((experience) => ({
+                            companyName: experience.companyName || "",
+                            start: { year: experience.start?.year || "" },
+                            end: { year: experience.end?.year || "" },
+                            title: experience.title || "",
+                            description: experience.description || "",
+                            location: experience.location
+                                ? experience.location
+                                      .split(",")
+                                      .slice(0, 2)
+                                      .join(", ")
+                                : "",
+                        })) || [],
 
-                        projects:
-                            apiData.projects?.items?.map((project) => ({
-                                title: project.title || "",
-                                description: project.description || "",
-                                technologies: project.technologies || "",
-                                links: project.links || "",
-                            })) || [],
+                    projects:
+                        apiData.projects?.items?.map((project) => ({
+                            title: project.title || "",
+                            description: project.description || "",
+                            technologies: project.technologies || "",
+                            links: project.links || "",
+                        })) || [],
 
-                        certifications:
-                            apiData.certifications?.map((certificate) => ({
-                                name: certificate.name || "",
-                                authority: certificate.authority || "",
-                            })) || [],
+                    certifications:
+                        apiData.certifications?.map((certificate) => ({
+                            name: certificate.name || "",
+                            authority: certificate.authority || "",
+                        })) || [],
 
-                        skills: {
-                            others:
-                                (others || "") +
-                                (others && apiData.skills?.length ? ", " : "") +
-                                (apiData.skills
-                                    ?.map((skill) => skill.name)
-                                    .join(", ") || ""),
-                        },
-                    };
+                    skills: {
+                        others:
+                            (others || "") +
+                            (others && apiData.skills?.length ? ", " : "") +
+                            (apiData.skills
+                                ?.map((skill) => skill.name)
+                                .join(", ") || ""),
+                    },
+                };
 
-                    // return mappedData;
-                    resolve(mappedData);
-                }, 5000);
-            });
+                return mappedData;
+                //     resolve(mappedData);
+                // }, 5000);
+                // });
+            } else {
+                return null;
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -161,8 +166,10 @@ function Resume() {
         setIsSubmitting(true);
         try {
             let mappedData = await callApi();
-            dispatch(setResumeInfo(mappedData));
-            navigate("/resume/new");
+            if (mappedData) {
+                dispatch(setResumeInfo(mappedData));
+                navigate("/resume/new");
+            } else return handleError("Invalid LinkedIn Profile Url");
         } catch (error) {
             console.log(error);
         } finally {
