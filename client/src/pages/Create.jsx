@@ -143,6 +143,7 @@ function Create() {
                             <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template1.jpg"
+                                    loading="eager"
                                     className={`flex-1 w-44 h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "1"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
@@ -158,6 +159,7 @@ function Create() {
                             <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template2.jpg"
+                                    loading="eager"
                                     className={`flex-1 w-44 h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "2"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
@@ -173,6 +175,7 @@ function Create() {
                             <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template3.jpg"
+                                    loading="eager"
                                     className={`flex-1 w-44 h-60 object-cover overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "3"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"
@@ -188,6 +191,7 @@ function Create() {
                             <button className="flex flex-col justify-center items-center">
                                 <img
                                     src="/images/Template4.jpg"
+                                    loading="eager"
                                     className={`flex-1 w-44 h-60 object-fill overflow-hidden rounded-md border-2 transition-all duration-300 ${
                                         template === "4"
                                             ? "bg-blue-500 text-white border-blue-400 shadow-lg scale-[1.01]"

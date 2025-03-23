@@ -62,7 +62,7 @@ function EditFields({
     achievementArrayFields,
     register,
     template,
-    getValues
+    getValues,
 }) {
     const { id } = useParams();
     const [name, setName] = useState("Untitled Resume");
@@ -448,11 +448,26 @@ function EditFields({
                                     placeholder="MySQL, MongoDB"
                                     {...register(`skills.databases`)}
                                 />
-                                <Input
+                                {/* <Input
                                     labelName="Others"
                                     placeholder="Enter any other skills"
                                     {...register(`skills.others`)}
-                                />
+                                /> */}
+                                <div className="w-full mt-4">
+                                    <label
+                                        htmlFor="others"
+                                        className="block my-2 text-sm text-slate-600"
+                                    >
+                                        Others
+                                    </label>
+                                    <textarea
+                                        id="others"
+                                        rows="6"
+                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 col-span-2"
+                                        placeholder="Enter any other skills"
+                                        {...register(`skills.others`)}
+                                    ></textarea>
+                                </div>
                                 <br />
                             </div>
                         </AccordionContent>

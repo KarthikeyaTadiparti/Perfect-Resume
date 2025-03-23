@@ -75,8 +75,8 @@ function Template4({ formData }) {
                                                     )}
                                                     {edu.grade && (
                                                         <li>
-                                                            Percentage :{" "}
-                                                            {edu.grade}%
+                                                            Percentage/CGPA :{" "}
+                                                            {edu.grade}
                                                         </li>
                                                     )}
                                                     {(edu.start.year ||

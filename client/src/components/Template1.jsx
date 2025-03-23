@@ -69,7 +69,7 @@ function Template1({ formData }) {
                                 )}
 
                                 {edu.grade && (
-                                    <div>(Percentage : {edu.grade}%)</div>
+                                    <div>(Percentage/CGPA : {edu.grade})</div>
                                 )}
                             </div>
                         ))}

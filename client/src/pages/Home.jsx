@@ -28,6 +28,7 @@ function Home() {
             <div>
                 <img
                     src="/images/resume-illustration.svg"
+                    loading="eager"
                     alt="resume-illustration"
                     className="h-[90%] float-right"
                 />
