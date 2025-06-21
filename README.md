@@ -21,29 +21,52 @@ https://perfect-resume-sable.vercel.app
 ## 📄 Pages Description
 
 ### 1. **Landing Page**
-<img src="./images/dashboard.png" alt="Resume Screenshot" width="600"/>
+<p align="center">
+  <img src="./images/landing.png" alt="landing" style="width: 100%; max-width: 800px;" />
+</p>
+
 
 ### 2. **Authentication (Login / Register)**
 - User login and sign-up with form validation
 - Tokens stored in cookies and localStorage
+<p align="center">
+  <img src="./images/signup.png" alt="signup" style="width: 100%; max-width: 800px;" />
+</p>
+<p align="center">
+  <img src="./images/login.png" alt="login" style="width: 100%; max-width: 800px;" />
+</p>
 
 ### 3. **Dashboard**
 - Displays all resumes created by the user
 - Options to edit, delete, duplicate, or download resumes
+<p align="center">
+  <img src="./images/dashboard.png" alt="dashboard" style="width: 100%; max-width: 800px;" />
+</p>
 
 ### 4. **Resume Editor**
 - Modular form sections: Personal Info, Education, Work Experience, Skills, Projects, etc.
 - Real-time preview of the resume
 - Auto-fill resume data from LinkedIn profile
+<p align="center">
+  <img src="./images/linkedin.png" alt="linkedin" style="width: 100%; max-width: 800px;" />
+</p>
+<p align="center">
+  <img src="./images/creation.png" alt="creation" style="width: 100%; max-width: 800px;" />
+</p>
 
 ### 5. **Template Selector**
 - Multiple professionally designed templates
 - Instantly applies selected template to preview
+<p align="center">
+  <img src="./images/template.png" alt="template" style="width: 100%; max-width: 800px;" />
+</p>
 
 ### 6. **Preview & Download**
 - Final preview of the selected resume template
-- Option to download as PDF using Puppeteer
-- Supabase stores and fetches preview images for faster rendering
+- Option to download as PDF
+<p align="center">
+  <img src="./images/download.png" alt="download" style="width: 100%; max-width: 800px;" />
+</p>
 
 ---
 
