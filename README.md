@@ -21,8 +21,7 @@ https://perfect-resume-sable.vercel.app
 ## 📄 Pages Description
 
 ### 1. **Landing Page**
-- Introduction to the platform with a clear CTA
-- Brief highlights of the features
+<img src="./images/dashboard.png" alt="Resume Screenshot" width="600"/>
 
 ### 2. **Authentication (Login / Register)**
 - User login and sign-up with form validation
