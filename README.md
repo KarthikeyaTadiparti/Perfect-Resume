@@ -1,6 +1,6 @@
 <h1 align="center">
-  <span style="color: white; background-color: #02417b; padding: 0.2em 0.6em; border-radius: 6px;">
-    Perfect <span style="color: #02417b; background-color: white;">Resume</span>
+  <span style="padding: 0.2em 0.6em; border-radius: 6px;">
+    Perfect <span style="color: #02417b;">Resume</span>
   </span>
 </h1>
 
