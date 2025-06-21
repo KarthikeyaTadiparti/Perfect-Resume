@@ -80,8 +80,8 @@ https://perfect-resume-sable.vercel.app
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/perfect-resume.git
-cd perfect-resume
+git clone https://github.com/KarthikeyaTadiparti/Perfect-Resume.git
+cd Perfect-Resume
 ```
 ### 2. Install dependencies
 ```bash
