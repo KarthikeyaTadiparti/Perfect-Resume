@@ -1,4 +1,8 @@
-# 💼 Perfect Resume
+<h1 align="center">
+  <span style="color: white; background-color: #02417b; padding: 0.2em 0.6em; border-radius: 6px;">
+    Perfect <span style="color: #02417b; background-color: white;">Resume</span>
+  </span>
+</h1>
 
 Perfect Resume is a MERN stack web application that helps users create, customize, and download professional resumes effortlessly. It features real-time editing, LinkedIn data scraping, multiple template options, and one-click PDF export. The platform offers secure authentication and storage, making resume building intuitive and powerful.
 
