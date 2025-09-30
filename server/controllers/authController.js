@@ -74,7 +74,7 @@ const logout = async (req, res) => {
             secure: process.env.NODE_ENV !== "development",
             sameSite: "none",
         });
-        res.status(200).json({ status: true, message: "User logged out successfully!" });
+        return res.status(200).json({ status: true, message: "User logged out successfully!" });
     }
     res.status(200).json({ status: true, message: "No session found, but logged out anyway." });
 };
