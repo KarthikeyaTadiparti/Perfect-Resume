@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dialog";
 import { FaTrash } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { data } from "../data";
 import { removeResumeInfo, setResumeInfo } from "@/slices/resumeSlice";
 import { FaPlus } from "react-icons/fa6";
 
@@ -75,11 +74,7 @@ function Resume() {
             console.log(response);
             const apiData = response.data;
             console.log("api : ", apiData);
-            if (apiData.id) {
-                // return new Promise((resolve) => {
-                //     setTimeout(() => {
-                // console.log("data :", data);
-                // const apiData = data;
+            if (apiData.id) { 
                 const others = "";
                 const mappedData = {
                     firstName: apiData.firstName || "",
@@ -140,11 +135,7 @@ function Resume() {
                                 .join(", ") || ""),
                     },
                 };
-
                 return mappedData;
-                //     resolve(mappedData);
-                // }, 5000);
-                // });
             } else {
                 return null;
             }
@@ -163,7 +154,7 @@ function Resume() {
             if (mappedData) {
                 dispatch(setResumeInfo(mappedData));
                 navigate("/resume/new");
-            } else return handleError("Invalid LinkedIn Profile Url");
+            } else return handleError("We are no longer providing this service at this time.");
         } catch (error) {
             console.log(error);
         } finally {

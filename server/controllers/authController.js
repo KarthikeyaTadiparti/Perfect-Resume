@@ -1,6 +1,7 @@
 const UserModel = require("../models/UserModel");
 const genToken = require("../utils/genToken");
 const bcrypt = require("bcryptjs");
+const sendDiscordAlert = require("../utils/discordAlert");
 
 const signup = async (req, res) => {
     try {
@@ -15,6 +16,12 @@ const signup = async (req, res) => {
         await newUser.save();
 
         genToken(res, newUser._id);
+
+        //discord alert
+        await sendDiscordAlert(
+            `**New User Signup**\n Name: ${name}\n Email: ${email}\n ${new Date().toLocaleString()}`
+        );
+
         res.status(201).json({
             message: "User registered successfully!",
             success: true,
@@ -50,6 +57,12 @@ const login = async (req, res) => {
         }
 
         genToken(res, user._id);
+
+        //discord alert
+        await sendDiscordAlert(
+            `**User Login**\n Name: ${user.name}\n Email: ${email}\n ${new Date().toLocaleString()}`
+        );
+
         res.status(201).json({
             message: "User logged in successfully!",
             success: true,

@@ -8,13 +8,11 @@ import Create from "./pages/Create";
 import Edit from "./pages/Edit";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
-import Demo from "./pages/Demo"
 import AboutUs from "./pages/AboutUs";
 function App() {
     const UserInfo = useSelector((state) => state.auth.UserInfo);
     return (
         <Routes>
-            <Route path="/demo" element={<Demo/>}></Route>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />}></Route>
                 <Route path="/aboutus" element={<AboutUs />}></Route>
