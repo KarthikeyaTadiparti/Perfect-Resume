@@ -60,11 +60,16 @@ function Resume() {
         method: "GET",
         url: import.meta.env.VITE_LINKEDIN_API_URL,
         params: {
-            url: url,
+            linkedin_url: url,
+            include_skills: 'true',
+            include_certifications: 'true',
+            include_profile_status: 'false',
+            include_company_public_url: 'false'
         },
         headers: {
             "x-rapidapi-key": import.meta.env.VITE_RAPIDAPI_KEY,
             "x-rapidapi-host": import.meta.env.VITE_RAPIDAPI_HOST,
+            'Content-Type': 'application/json'
         },
     };
 
@@ -74,46 +79,44 @@ function Resume() {
             console.log(response);
             const apiData = response.data;
             console.log("api : ", apiData);
-            if (apiData.id) { 
+            const profile = apiData.data || apiData;
+            if (profile && (profile.first_name || profile.firstName || profile.full_name)) {
                 const others = "";
                 const mappedData = {
-                    firstName: apiData.firstName || "",
-                    lastName: apiData.lastName || "",
-                    email: apiData.email || "",
-                    mobile: apiData.mobile || "",
+                    firstName: profile.first_name || profile.firstName || "",
+                    lastName: profile.last_name || profile.lastName || "",
+                    email: profile.email || "",
+                    mobile: profile.phone || profile.mobile || "",
                     geo: {
-                        city: apiData.geo?.city || "",
-                        country: apiData.geo?.country || "",
+                        city: profile.city || profile.geo?.city || "",
+                        country: profile.country || profile.geo?.country || "",
                     },
-                    headline: apiData.headline || "",
-
+                    headline: profile.about || "",
+                    
                     educations:
-                        apiData.educations?.map((education) => ({
-                            schoolName: education.schoolName || "",
-                            start: { year: education.start?.year || "" },
-                            end: { year: education.end?.year || "" },
-                            fieldOfStudy: education.fieldOfStudy || "",
+                        (profile.educations || []).map((education) => ({
+                            schoolName: education.school || education.schoolName || "",
+                            start: { year: education.start_year || education.start?.year || "" },
+                            end: { year: education.end_year || education.end?.year || "" },
+                            fieldOfStudy: education.field_of_study || education.fieldOfStudy || "",
                             degree: education.degree || "",
                             grade: education.grade || "",
                         })) || [],
 
                     experiences:
-                        apiData.position?.map((experience) => ({
-                            companyName: experience.companyName || "",
-                            start: { year: experience.start?.year || "" },
-                            end: { year: experience.end?.year || "" },
-                            title: experience.title || "",
+                        (profile.experiences || profile.position || []).map((experience) => ({
+                            companyName: experience.company || experience.companyName || "",
+                            start: { year: experience.start_year || experience.start?.year || "" },
+                            end: { year: experience.end_year || experience.end?.year || "" },
+                            title: experience.title || experience.job_title || "",
                             description: experience.description || "",
                             location: experience.location
                                 ? experience.location
-                                      .split(",")
-                                      .slice(0, 2)
-                                      .join(", ")
                                 : "",
                         })) || [],
 
                     projects:
-                        apiData.projects?.items?.map((project) => ({
+                        (profile.projects?.items || profile.projects || []).map((project) => ({
                             title: project.title || "",
                             description: project.description || "",
                             technologies: project.technologies || "",
@@ -121,7 +124,7 @@ function Resume() {
                         })) || [],
 
                     certifications:
-                        apiData.certifications?.map((certificate) => ({
+                        (profile.certifications || []).map((certificate) => ({
                             name: certificate.name || "",
                             authority: certificate.authority || "",
                         })) || [],
@@ -129,10 +132,10 @@ function Resume() {
                     skills: {
                         others:
                             (others || "") +
-                            (others && apiData.skills?.length ? ", " : "") +
-                            (apiData.skills
-                                ?.map((skill) => skill.name)
-                                .join(", ") || ""),
+                            (others && profile.skills?.length ? ", " : "") +
+                            (Array.isArray(profile.skills)
+                                ? profile.skills.map((skill) => skill.name || skill).join(", ")
+                                : typeof profile.skills === 'string' ? profile.skills : ""),
                     },
                 };
                 return mappedData;
