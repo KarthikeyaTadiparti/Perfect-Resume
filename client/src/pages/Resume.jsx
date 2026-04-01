@@ -100,7 +100,7 @@ function Resume() {
                             end: { year: education.end_year || education.end?.year || "" },
                             fieldOfStudy: education.field_of_study || education.fieldOfStudy || "",
                             degree: education.degree || "",
-                            grade: education.grade || "",
+                            grade: education.grade ? education.grade.replace(/^[^:]*:\s*/, '').trim() : "",
                         })) || [],
 
                     experiences:
@@ -132,10 +132,12 @@ function Resume() {
                     skills: {
                         others:
                             (others || "") +
-                            (others && profile.skills?.length ? ", " : "") +
+                            (others && profile.skills?.length ? "," : "") +
                             (Array.isArray(profile.skills)
-                                ? profile.skills.map((skill) => skill.name || skill).join(", ")
-                                : typeof profile.skills === 'string' ? profile.skills : ""),
+                                ? profile.skills.map((skill) => skill.name || skill).join(",")
+                                : typeof profile.skills === 'string'
+                                ? profile.skills.replace(/\|/g, ",").replace(/, /g, ",").replace(/\n/g, ",")
+                                : ""),
                     },
                 };
                 return mappedData;
